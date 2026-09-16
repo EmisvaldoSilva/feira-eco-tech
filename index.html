@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eco Tech — Turismo Sustentável na Chapada das Mesas</title>
+<style>
+  :root{
+    --verde-escuro:#14452F;
+    --verde:#1E7A4B;
+    --verde-claro:#3FA96B;
+    --terra:#8A5A2B;
+    --terra-claro:#C98B4B;
+    --dourado:#E0A422;
+    --dourado-claro:#F7D070;
+    --areia:#F6F1E4;
+    --papel:#FFFDF7;
+    --texto:#22301F;
+    --texto-suave:#5B6B58;
+    --agua:#2E86AB;
+    --alerta:#C1521E;
+    --critico:#A62B1F;
+    --borda:rgba(20,69,47,.14);
+    --sombra:0 6px 22px rgba(20,69,47,.10);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--areia);
+    color:var(--texto);
+    font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%}
+  button{font-family:inherit}
+
+  /* ---------- Cabecalho ---------- */
+  header.topo{
+    background:linear-gradient(135deg,var(--verde-escuro) 0%,var(--verde) 55%,var(--verde-claro) 100%);
+    color:#fff;
+    padding:22px 20px 0;
+    box-shadow:var(--sombra);
+    position:relative;
+    overflow:hidden;
+  }
+  header.topo::after{
+    content:"";position:absolute;right:-60px;top:-70px;width:280px;height:280px;
+    border-radius:50%;background:rgba(224,164,34,.16);
+  }
+  .marca{display:flex;align-items:center;gap:14px;max-width:1100px;margin:0 auto;position:relative;z-index:1}
+  .logo{
+    width:54px;height:54px;border-radius:14px;flex:0 0 auto;
+    background:var(--dourado);display:grid;place-items:center;
+    box-shadow:0 4px 14px rgba(0,0,0,.22);
+  }
+  .logo svg{width:34px;height:34px}
+  .marca h1{margin:0;font-size:1.7rem;letter-spacing:.5px}
+  .marca .sub{margin:2px 0 0;font-size:.95rem;color:var(--dourado-claro);font-weight:600}
+  .selo{
+    margin-left:auto;text-align:right;font-size:.78rem;opacity:.92;line-height:1.35;
+  }
+  nav.abas{
+    max-width:1100px;margin:16px auto 0;display:flex;gap:6px;flex-wrap:wrap;position:relative;z-index:1;
+  }
+  nav.abas button{
+    background:rgba(255,255,255,.12);color:#fff;border:0;
+    padding:10px 13px;border-radius:12px 12px 0 0;font-size:.9rem;font-weight:600;
+    cursor:pointer;transition:background .15s;white-space:nowrap;
+  }
+  nav.abas button:hover{background:rgba(255,255,255,.22)}
+  nav.abas button.ativa{background:var(--areia);color:var(--verde-escuro)}
+
+  /* ---------- Layout ---------- */
+  main{max-width:1100px;margin:0 auto;padding:26px 20px 60px}
+  section.pagina{display:none;animation:aparece .25s ease}
+  section.pagina.ativa{display:block}
+  @keyframes aparece{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h2{color:var(--verde-escuro);font-size:1.45rem;margin:0 0 6px}
+  h3{color:var(--verde);font-size:1.08rem;margin:0 0 8px}
+  .legenda{color:var(--texto-suave);margin:0 0 22px;max-width:70ch}
+  .cartao{
+    background:var(--papel);border:1px solid var(--borda);border-radius:16px;
+    padding:18px 20px;box-shadow:var(--sombra);
+  }
+  .grade{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+  .destaque{
+    border-left:5px solid var(--dourado);background:#FFF8E7;
+    padding:14px 16px;border-radius:0 12px 12px 0;margin:18px 0;
+  }
+  .aviso{
+    border-left:5px solid var(--agua);background:#EAF4F9;
+    padding:14px 16px;border-radius:0 12px 12px 0;margin:18px 0;font-size:.92rem;
+  }
+  .etiqueta{
+    display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.4px;
+    text-transform:uppercase;padding:3px 9px;border-radius:99px;
+    background:var(--verde-claro);color:#fff;
+  }
+  .etiqueta.terra{background:var(--terra-claro)}
+  .etiqueta.ouro{background:var(--dourado);color:#4A3400}
+  .etiqueta.agua{background:var(--agua)}
+
+  /* ---------- Inicio ---------- */
+  .heroi{
+    background:var(--papel);border:1px solid var(--borda);border-radius:18px;
+    padding:24px;box-shadow:var(--sombra);margin-bottom:22px;
+  }
+  .passos{counter-reset:p;display:grid;gap:14px;margin-top:8px}
+  .passo{display:flex;gap:14px;align-items:flex-start}
+  .passo .num{
+    flex:0 0 auto;width:34px;height:34px;border-radius:50%;
+    background:var(--verde);color:#fff;display:grid;place-items:center;font-weight:700;
+  }
+  .passo p{margin:0;font-size:.95rem}
+  .passo strong{color:var(--verde-escuro)}
+
+  /* ---------- Guia ---------- */
+  .filtros{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .filtros button{
+    background:var(--papel);border:1px solid var(--borda);color:var(--verde-escuro);
+    padding:8px 14px;border-radius:99px;font-size:.88rem;font-weight:600;cursor:pointer;
+  }
+  .filtros button.ativa{background:var(--verde);color:#fff;border-color:var(--verde)}
+  .atrativo{display:flex;flex-direction:column;overflow:hidden;padding:0}
+  .atrativo .capa{height:150px;position:relative;background:var(--verde-escuro);overflow:hidden}
+  .atrativo .capa img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .25s ease,filter .25s ease}
+  .atrativo:hover .capa img{transform:scale(1.035);filter:saturate(1.06)}
+  .atrativo .capa::after{content:"";position:absolute;inset:38% 0 0;background:linear-gradient(180deg,transparent,rgba(10,35,24,.62));pointer-events:none}
+  .capaSelo{position:absolute;right:10px;bottom:10px;z-index:1;background:rgba(20,69,47,.86);color:#fff;border:1px solid rgba(255,255,255,.34);border-radius:99px;padding:4px 8px;font-size:.67rem;font-weight:700;letter-spacing:.15px}
+  .atrativo .corpo{padding:16px 18px 18px}
+  .atrativo h3{margin:0 0 2px}
+  .atrativo .local{font-size:.8rem;color:var(--texto-suave);margin:0 0 10px;font-weight:600}
+  .atrativo p.desc{font-size:.92rem;margin:0 0 12px}
+  .dica{
+    font-size:.85rem;background:#F1F7F1;border-radius:10px;padding:10px 12px;
+    border:1px dashed var(--verde-claro);
+  }
+  .dica b{color:var(--verde-escuro)}
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="marca">
+    <div class="logo" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#14452F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 21c5-1 8-5 8-11V4l-8 2-8-2v6c0 6 3 10 8 11z"/>
+        <path d="M12 21V9"/><path d="M12 13l3-2"/><path d="M12 16l-3-2"/>
+      </svg>
+    </div>
+    <div>
+      <h1>ECO TECH</h1>
+      <p class="sub">Turismo Sustentável na Chapada das Mesas</p>
+    </div>
+    <div class="selo">
+      Feira de Ciências &middot; CELAM<br>Carolina — MA &middot; 18/09/2026
+    </div>
+  </div>
+  <nav class="abas" id="abas">
+    <button class="ativa" data-alvo="inicio">Início</button>
+    <button data-alvo="guia">Guia dos Atrativos</button>
+    <button data-alvo="ciencia">Ciência Cidadã com IA</button>
+    <button data-alvo="painel">Painel de Monitoramento</button>
+    <button data-alvo="mockups">Como vai funcionar</button>
+    <button data-alvo="sobre">Sobre o Projeto</button>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============ INICIO ============ -->
+<section class="pagina ativa" id="inicio">
+  <div class="heroi">
+    <span class="etiqueta ouro">Introdução</span>
+    <h2 style="margin-top:10px">Tecnologia a serviço da natureza</h2>
+    <p style="max-width:75ch;font-size:1.02rem">
+      A <b>Eco Tech</b> é um projeto voltado para unir tecnologia, turismo sustentável e preservação
+      ambiental na Chapada das Mesas. Por meio de um site interativo e de um sistema inteligente de
+      monitoramento da qualidade das águas, o projeto busca facilitar o acesso às informações
+      turísticas, promover a conscientização ambiental e contribuir para a conservação dos recursos
+      naturais da região, beneficiando tanto visitantes quanto a comunidade local.
+    </p>
+  </div>
+
+  <div class="grade g3">
+    <div class="cartao">
+      <span class="etiqueta">Problema</span>
+      <h3 style="margin-top:10px">A Chapada é grande demais</h3>
+      <p style="font-size:.95rem;margin:0">
+        São dezenas de cachoeiras, riachos e trilhas espalhados por centenas de quilômetros.
+        Não existe sensor, fiscal nem equipe de limpeza em cada ponto de água da região.
+      </p>
+    </div>
+    <div class="cartao">
+      <span class="etiqueta agua">Ideia</span>
+      <h3 style="margin-top:10px">O turista vira sensor</h3>
+      <p style="font-size:.95rem;margin:0">
+        Quem visita já leva um celular com câmera. Uma foto do riacho ou da margem, enviada pelo
+        site, vira <b>dado ambiental</b>. Isso se chama <b>Ciência Cidadã</b>.
+      </p>
+    </div>
+    <div class="cartao">
+      <span class="etiqueta terra">Solução</span>
+      <h3 style="margin-top:10px">A IA lê a foto na hora</h3>
+      <p style="font-size:.95rem;margin:0">
+        O site analisa as cores e o brilho da imagem e responde se a água está clara ou barrenta e
+        se há sinal de resíduo na margem, apontando onde a equipe precisa ir primeiro.
+      </p>
+    </div>
+  </div>
+
+  <div class="cartao" style="margin-top:22px">
+    <h3>Como funciona, do começo ao fim</h3>
+    <div class="passos">
+      <div class="passo"><div class="num">1</div><p><strong>O visitante fotografa</strong> a água ou a margem do atrativo que está visitando.</p></div>
+      <div class="passo"><div class="num">2</div><p><strong>Envia pelo site Eco Tech</strong> e escolhe em qual atrativo a foto foi tirada.</p></div>
+      <div class="passo"><div class="num">3</div><p><strong>A IA analisa a imagem</strong> e calcula um Índice Visual de Preservação, de 0 a 100.</p></div>
+      <div class="passo"><div class="num">4</div><p><strong>O resultado entra no painel</strong>, que mostra quais pontos estão preservados e quais precisam de atenção.</p></div>
+      <div class="passo"><div class="num">5</div><p><strong>A gestão do parque e a comunidade agem</strong> com base em um mapa vivo, alimentado por quem visita.</p></div>
+    </div>
+    <div class="destaque">
+      <b>Por que isso é sustentável?</b> O turismo deixa de ser só consumo da paisagem e vira parte do
+      cuidado com ela. Cada visitante contribui sem custo, sem obra e sem impacto ambiental adicional.
+    </div>
+  </div>
+</section>
+
+<!-- ============ GUIA ============ -->
+<section class="pagina" id="guia">
+  <h2>Guia dos Atrativos</h2>
+  <p class="legenda">
+    Informações turísticas reunidas em um só lugar, com a orientação de preservação que cada ponto
+    exige. Carolina é a base de quem visita a Chapada das Mesas.
+  </p>
+  <div class="aviso" style="margin-top:-6px;margin-bottom:18px">
+    <b>Leitura visual:</b> as capas são ilustrações originais geradas a partir de referências
+    fotográficas públicas dos locais. Elas ajudam a reconhecer cada atrativo, mas não são
+    fotografias de medição nem substituem a observação no local.
+  </div>
+  <div class="filtros" id="filtros"></div>
+  <div class="grade g3" id="listaAtrativos"></div>
+</section>
+
+<style>
+  /* ---------- Ciencia Cidada ---------- */
+  .laboratorio{display:grid;gap:18px;grid-template-columns:minmax(300px,1fr) minmax(300px,1.1fr)}
+  @media (max-width:820px){.laboratorio{grid-template-columns:1fr}}
+  .zonaEnvio{
+    border:2px dashed var(--verde-claro);border-radius:16px;background:var(--papel);
+    padding:26px 20px;text-align:center;cursor:pointer;transition:.15s;
+  }
+  .zonaEnvio:hover,.zonaEnvio.sobre{background:#EFF7EF;border-color:var(--verde)}
+  .zonaEnvio svg{width:46px;height:46px;stroke:var(--verde);fill:none;stroke-width:1.6}
+  .zonaEnvio p{margin:8px 0 0;font-weight:600;color:var(--verde-escuro)}
+  .zonaEnvio small{color:var(--texto-suave)}
+  .amostras{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+  .amostras button{
+    border:1px solid var(--borda);background:var(--papel);border-radius:12px;padding:0;
+    cursor:pointer;overflow:hidden;text-align:center;transition:.15s;
+  }
+  .amostras button:hover{border-color:var(--verde);transform:translateY(-2px)}
+  .amostras canvas{display:block;width:100%;height:62px;object-fit:cover}
+  .amostras span{display:block;font-size:.74rem;font-weight:700;padding:6px 4px;color:var(--verde-escuro)}
+  .campo{margin-top:14px}
+  .campo label{display:block;font-size:.84rem;font-weight:700;color:var(--verde-escuro);margin-bottom:5px}
+  .campo select{
+    width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--borda);
+    background:var(--papel);font-size:.95rem;color:var(--texto);
+  }
+  .botao{
+    display:inline-block;background:var(--verde);color:#fff;border:0;border-radius:12px;
+    padding:12px 20px;font-size:.98rem;font-weight:700;cursor:pointer;transition:.15s;
+  }
+  .botao:hover{background:var(--verde-escuro)}
+  .botao[disabled]{opacity:.45;cursor:not-allowed}
+  .botao.ouro{background:var(--dourado);color:#4A3400}
+  .botao.ouro:hover{background:#C98F13}
+  .botao.vazio{background:transparent;color:var(--verde);border:1px solid var(--verde-claro)}
+  .botao.vazio:hover{background:#EFF7EF;color:var(--verde-escuro)}
+
+  .visor{position:relative;border-radius:14px;overflow:hidden;background:#0D1B12;min-height:190px;display:grid;place-items:center}
+  .visor canvas{display:block;width:100%;height:auto;max-height:330px;object-fit:contain}
+  .visor .vazio{color:#8FAE99;font-size:.9rem;padding:40px 20px;text-align:center}
+  .varredura{
+    position:absolute;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--dourado-claro),transparent);
+    box-shadow:0 0 12px var(--dourado);animation:varre 1.1s linear infinite;display:none;
+  }
+  .visor.analisando .varredura{display:block}
+  @keyframes varre{0%{top:0}100%{top:100%}}
+
+  .medidor{display:flex;align-items:center;gap:16px;margin:16px 0 6px}
+  .anel{position:relative;width:104px;height:104px;flex:0 0 auto}
+  .anel svg{transform:rotate(-90deg)}
+  .anel .valor{
+    position:absolute;inset:0;display:grid;place-items:center;font-size:1.65rem;font-weight:800;color:var(--verde-escuro)
+  }
+  .vereditoTitulo{font-size:1.2rem;font-weight:800;margin:0}
+  .vereditoTexto{font-size:.93rem;color:var(--texto-suave);margin:4px 0 0}
+  .indicadores{display:grid;gap:8px;margin-top:14px}
+  .indicador{display:flex;align-items:center;gap:10px;font-size:.9rem}
+  .bolinha{width:12px;height:12px;border-radius:3px;flex:0 0 auto}
+  .barra{flex:1;height:8px;border-radius:99px;background:#E7E2D3;overflow:hidden}
+  .barra i{display:block;height:100%;border-radius:99px}
+  .indicador .pct{font-variant-numeric:tabular-nums;font-weight:700;width:46px;text-align:right;font-size:.84rem}
+  .etiqueta.selo{margin-top:8px;font-size:.68rem}
+  .declara{background:#EAF4F9;border:1px solid #BBD9E8;border-radius:14px;padding:16px 18px;margin-top:16px}
+  .declaraTitulo{margin:0 0 6px;font-weight:800;color:var(--verde-escuro);font-size:1rem}
+  .declaraTexto{margin:0;font-size:.88rem;color:var(--texto-suave)}
+  .declaraDica{margin:10px 0 0;font-size:.85rem;color:var(--alerta);font-weight:600}
+  .declaraBotoes{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  .declaraBotoes .botao{padding:10px 18px;font-size:.92rem}
+  .etiqueta[hidden]{display:none}
+  .camadas{display:flex;gap:10px;align-items:center;margin-top:12px;font-size:.85rem;color:var(--texto-suave)}
+
+  /* Notebook de estande costuma ter 768px de altura ou menos. */
+  @media (max-height:820px){
+    header.topo{padding-top:14px}
+    .marca h1{font-size:1.45rem}
+    .logo{width:46px;height:46px}
+    main{padding-top:18px}
+    #ciencia .legenda{margin-bottom:14px}
+    .visor canvas{max-height:210px}
+    .zonaEnvio{padding:18px 16px}
+    .amostras canvas{height:52px}
+  }
+  .interruptor{
+    position:relative;width:44px;height:24px;border-radius:99px;background:#CFC9B8;cursor:pointer;transition:.2s;flex:0 0 auto;border:0
+  }
+  .interruptor::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s}
+  .interruptor.on{background:var(--verde)}
+  .interruptor.on::after{transform:translateX(20px)}
+
+  /* ---------- Painel ---------- */
+  .numeros{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:20px}
+  .numero{background:var(--papel);border:1px solid var(--borda);border-radius:14px;padding:16px;text-align:center;box-shadow:var(--sombra)}
+  .numero b{display:block;font-size:1.9rem;color:var(--verde-escuro);font-variant-numeric:tabular-nums;line-height:1.1}
+  .numero span{font-size:.78rem;color:var(--texto-suave);font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+  table{width:100%;border-collapse:collapse;font-size:.9rem}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--borda)}
+  th{font-size:.76rem;text-transform:uppercase;letter-spacing:.4px;color:var(--texto-suave)}
+  td.nota{font-weight:800;font-variant-numeric:tabular-nums}
+  .rolagem{overflow-x:auto}
+  .vazioPainel{color:var(--texto-suave);font-size:.92rem;padding:18px 0}
+  .sinal{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:middle}
+</style>
+
+<!-- ============ CIENCIA CIDADA ============ -->
+<section class="pagina" id="ciencia">
+  <h2>Ciência Cidadã com IA</h2>
+  <p class="legenda">
+    Envie a foto de um riacho, de uma cachoeira ou da margem de uma trilha. A análise roda dentro
+    deste computador, sem internet, e devolve o Índice Visual de Preservação na hora.
+  </p>
+
+  <div class="laboratorio">
+    <div>
+      <div class="cartao" style="padding:18px">
+        <div class="zonaEnvio" id="zonaEnvio">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 16.5V19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2.5"/>
+            <path d="M12 3v13"/><path d="M7.5 7.5 12 3l4.5 4.5"/>
+          </svg>
+          <p>Clique aqui para enviar uma foto</p>
+          <small>ou arraste a imagem para esta área</small>
+          <input type="file" id="arquivo" accept="image/*" hidden>
+        </div>
+
+        <p style="font-size:.82rem;color:var(--texto-suave);margin:16px 0 6px;font-weight:700">
+          Sem foto em mãos? Teste com uma amostra:
+        </p>
+        <div class="amostras" id="amostras"></div>
+
+        <div class="campo">
+          <label for="local">Onde a foto foi tirada</label>
+          <select id="local"></select>
+        </div>
+
+        <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
+          <button class="botao ouro" id="btnEnviar" disabled>Registrar no painel</button>
+          <button class="botao vazio" id="btnLimpar">Limpar</button>
+        </div>
+      </div>
+
+      <div class="aviso">
+        <b>O que a IA faz de verdade:</b> ela mede a cor, o brilho e a saturação de cada ponto da
+        imagem e separa o que é água limpa, água com sedimento, vegetação e material de cor
+        artificial, típica de plástico. É visão computacional por análise de cor. Ela indica onde
+        olhar primeiro — não substitui a análise de laboratório da água.
+        Quando a foto não tem água nem vegetação, o sistema recusa a análise. E como cor
+        nenhuma prova que a imagem é de um rio, a foto enviada só vira nota depois que a
+        própria pessoa confirma o que fotografou.
+      </div>
+    </div>
+
+    <div>
+      <div class="cartao">
+        <div class="visor" id="visor">
+          <div class="varredura"></div>
+          <canvas id="telaResultado" hidden></canvas>
+          <div class="vazio" id="visorVazio">A imagem analisada aparece aqui,<br>com as camadas que a IA identificou.</div>
+        </div>
+
+        <div class="camadas">
+          <button class="interruptor on" id="btnCamadas" aria-label="Alternar camadas da IA"></button>
+          <span>Mostrar as camadas identificadas pela IA</span>
+        </div>
+
+        <div id="resultado" hidden>
+
+          <div class="declara" id="declara" hidden>
+            <div id="declaraPergunta">
+              <p class="declaraTitulo">Esta foto é de água ou da margem de um curso d'água?</p>
+              <p class="declaraTexto">A Eco Tech mede a cor da imagem. Ela não adivinha o que
+                você fotografou, então precisa que você diga.</p>
+              <p class="declaraDica" id="declaraDica" hidden></p>
+              <div class="declaraBotoes">
+                <button class="botao" id="btnSim">Sim, é água ou margem</button>
+                <button class="botao vazio" id="btnNao">Não é</button>
+              </div>
+            </div>
+            <div id="declaraNegado" hidden>
+              <p class="declaraTitulo">Então não há o que avaliar.</p>
+              <p class="declaraTexto">O Índice Visual de Preservação só faz sentido em foto de
+                água ou de margem. Em uma foto de outra coisa, o número não significaria nada.
+                Envie uma foto do riacho, da cachoeira ou da margem da trilha.</p>
+            </div>
+          </div>
+
+        <div id="veredito" hidden>
+          <div class="medidor">
+            <div class="anel">
+              <svg width="104" height="104">
+                <circle cx="52" cy="52" r="45" fill="none" stroke="#E7E2D3" stroke-width="11"/>
+                <circle id="arco" cx="52" cy="52" r="45" fill="none" stroke="#1E7A4B" stroke-width="11"
+                        stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="283"
+                        style="transition:stroke-dashoffset .8s ease,stroke .4s"/>
+              </svg>
+              <div class="valor" id="valorIndice">0</div>
+            </div>
+            <div>
+              <p class="vereditoTitulo" id="vereditoTitulo">—</p>
+              <p class="vereditoTexto" id="vereditoTexto"></p>
+              <span class="etiqueta selo" id="selo" hidden></span>
+            </div>
+          </div>
+
+          <div class="indicadores" id="indicadores"></div>
+
+          <div class="destaque" id="recomendacao" style="margin-bottom:0"></div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAINEL ============ -->
+<section class="pagina" id="painel">
+  <h2>Painel de Monitoramento</h2>
+  <p class="legenda">
+    Cada foto analisada vira um registro. Juntos, os registros mostram quais pontos da Chapada
+    estão preservados e quais precisam de mutirão de limpeza ou de fiscalização.
+  </p>
+
+  <div class="numeros">
+    <div class="numero"><b id="nTotal">0</b><span>Registros</span></div>
+    <div class="numero"><b id="nMedia">—</b><span>Índice médio</span></div>
+    <div class="numero"><b id="nPontos">0</b><span>Pontos monitorados</span></div>
+    <div class="numero"><b id="nAlertas">0</b><span>Alertas abertos</span></div>
+  </div>
+
+  <div class="cartao">
+    <h3>Registros da comunidade</h3>
+    <div class="rolagem">
+      <table id="tabela">
+        <thead>
+          <tr><th>Horário</th><th>Local</th><th>Índice</th><th>Situação</th><th>Observação da IA</th></tr>
+        </thead>
+        <tbody id="corpoTabela"></tbody>
+      </table>
+    </div>
+    <div class="vazioPainel" id="painelVazio">
+      Nenhum registro ainda. Analise uma foto na aba <b>Ciência Cidadã com IA</b> e clique em
+      <b>Registrar no painel</b>.
+    </div>
+    <div style="margin-top:14px">
+      <button class="botao vazio" id="btnZerar">Apagar registros da demonstração</button>
+    </div>
+  </div>
+
+  <div class="cartao" style="margin-top:20px">
+    <span class="etiqueta agua">Protótipo</span>
+    <h3 style="margin-top:10px">Estações de sensores — como seria a próxima etapa</h3>
+    <p style="font-size:.93rem;color:var(--texto-suave);max-width:75ch">
+      Nos pontos de maior visitação, o projeto prevê estações fixas medindo turbidez, pH e
+      temperatura da água, alimentando o mesmo painel. Os valores abaixo são
+      <b>simulados para demonstração</b>: nenhuma estação física foi instalada até agora.
+    </p>
+    <div class="rolagem">
+      <table>
+        <thead><tr><th>Estação prevista</th><th>Turbidez (NTU)</th><th>pH</th><th>Temperatura</th><th>Estado</th></tr></thead>
+        <tbody id="corpoSensores"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ---------- Mockups ---------- */
+  .mock{margin-bottom:24px}
+  .mockCabeca{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+  .mockCabeca h3{margin:0}
+  .mockCabeca span{font-size:.8rem;color:var(--texto-suave);font-weight:600}
+  .mockTexto{font-size:.93rem;color:var(--texto-suave);max-width:78ch;margin:0 0 18px}
+  .telas{display:flex;gap:22px;flex-wrap:wrap;justify-content:center;align-items:flex-start}
+  .tela{text-align:center;max-width:220px}
+  .tela svg{width:100%;height:auto;filter:drop-shadow(0 10px 22px rgba(20,69,47,.22))}
+  .tela p{font-size:.82rem;color:var(--texto-suave);margin:10px 0 0;font-weight:600}
+  .palco{display:grid;place-items:center;background:linear-gradient(160deg,#F1F7F1,#FBF7EC);
+         border-radius:16px;padding:22px 16px;border:1px solid var(--borda)}
+  .palco svg{max-width:100%;height:auto}
+  .notaMock{font-size:.82rem;color:var(--texto-suave);text-align:center;margin:12px 0 0}
+</style>
+
+<section class="pagina" id="mockups">
+  <h2>Como vai funcionar</h2>
+  <p class="legenda">
+    Os desenhos abaixo mostram a Eco Tech funcionando na Chapada: o aplicativo na mão do turista,
+    a sinalização no atrativo, a estação de sensores e o painel que a gestão do parque acompanha.
+  </p>
+
+  <div class="mock">
+    <div class="cartao">
+      <div class="mockCabeca"><h3>1. O aplicativo na mão do turista</h3><span>Protótipo de interface</span></div>
+      <p class="mockTexto">
+        Três toques do começo ao fim: a pessoa chega, fotografa e recebe a resposta. Sem cadastro e
+        sem formulário longo. Se o passo for difícil, o turista desiste e o dado se perde.
+      </p>
+      <div class="palco">
+        <div class="telas">
+
+          <div class="tela">
+            <svg viewBox="0 0 260 520" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0" y="0" width="260" height="520" rx="34" fill="#16231C"/>
+              <rect x="9" y="9" width="242" height="502" rx="27" fill="#FFFDF7"/>
+              <rect x="98" y="16" width="64" height="7" rx="3.5" fill="#16231C"/>
+              <g><rect x="9" y="9" width="242" height="52" rx="27" fill="#14452F"/><rect x="9" y="40" width="242" height="21" fill="#14452F"/><text x="130" y="47" font-family="Segoe UI,Arial" font-size="15" font-weight="700" fill="#F7D070" text-anchor="middle" letter-spacing="1.4">ECO TECH</text>
+      <defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#3FA96B"/><stop offset="1" stop-color="#2E86AB"/></linearGradient></defs>
+      <rect x="9" y="61" width="242" height="132" fill="url(#ga)"/>
+      <path d="M9 150 q40 -26 78 -6 q38 20 76 -4 q40 -26 88 2 v51 H9 Z" fill="#2E86AB" opacity=".55"/>
+      <path d="M9 168 q46 -20 86 0 q42 20 80 -2 q36 -18 76 4 v23 H9 Z" fill="#1B6E8C" opacity=".7"/>
+      <circle cx="205" cy="92" r="17" fill="#F7D070" opacity=".85"/>
+      <text x="130" y="222" font-family="Segoe UI,Arial" font-size="11" fill="#5B6B58" text-anchor="middle">VOCÊ ESTÁ EM</text>
+      <text x="130" y="245" font-family="Segoe UI,Arial" font-size="17" font-weight="700" fill="#14452F" text-anchor="middle">Cachoeira do Prata</text>
+      <text x="130" y="266" font-family="Segoe UI,Arial" font-size="10.5" fill="#5B6B58" text-anchor="middle">Parque Nacional da Chapada das Mesas</text>
+      <rect x="30" y="292" width="200" height="52" rx="14" fill="#E0A422"/>
+      <text x="130" y="323" font-family="Segoe UI,Arial" font-size="14" font-weight="700" fill="#4A3400" text-anchor="middle">Enviar foto da água</text>
+      <rect x="30" y="356" width="200" height="46" rx="14" fill="#fff" stroke="#3FA96B" stroke-width="1.6"/>
+      <text x="130" y="384" font-family="Segoe UI,Arial" font-size="13" font-weight="700" fill="#1E7A4B" text-anchor="middle">Ver guia do atrativo</text>
+      <rect x="30" y="418" width="200" height="62" rx="12" fill="#F1F7F1"/>
+      <text x="130" y="441" font-family="Segoe UI,Arial" font-size="10.5" fill="#5B6B58" text-anchor="middle">Ja enviaram 1.248 fotos deste ponto.</text>
+      <text x="130" y="458" font-family="Segoe UI,Arial" font-size="10.5" fill="#5B6B58" text-anchor="middle">Índice atual do local:</text>
+      <text x="130" y="474" font-family="Segoe UI,Arial" font-size="13" font-weight="800" fill="#1E7A4B" text-anchor="middle">84 - Área preservada</text></g>
+              <rect x="96" y="494" width="68" height="4" rx="2" fill="#C9C3B4"/>
+            </svg>
+            <p>1. Chega no atrativo e lê o QR Code</p>
+          </div>
+          <div class="tela">
+            <svg viewBox="0 0 260 520" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0" y="0" width="260" height="520" rx="34" fill="#16231C"/>
+              <rect x="9" y="9" width="242" height="502" rx="27" fill="#FFFDF7"/>
+              <rect x="98" y="16" width="64" height="7" rx="3.5" fill="#16231C"/>
+              <g><rect x="9" y="9" width="242" height="52" rx="27" fill="#14452F"/><rect x="9" y="40" width="242" height="21" fill="#14452F"/><text x="130" y="47" font-family="Segoe UI,Arial" font-size="15" font-weight="700" fill="#F7D070" text-anchor="middle" letter-spacing="1.4">ECO TECH</text>
+      <defs><linearGradient id="gb" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#2E86AB"/><stop offset="1" stop-color="#1B6E8C"/></linearGradient></defs>
+      <rect x="9" y="61" width="242" height="286" fill="url(#gb)"/>
+      <g stroke="#BEEBF5" stroke-linecap="round" opacity=".5">
+        <path d="M34 132 h52" stroke-width="3"/><path d="M118 158 h74" stroke-width="2.4"/>
+        <path d="M46 196 h88" stroke-width="2.6"/><path d="M150 224 h60" stroke-width="2"/>
+        <path d="M38 262 h64" stroke-width="2.8"/><path d="M132 292 h84" stroke-width="2.2"/>
+      </g>
+      <g stroke="#F7D070" stroke-width="3" fill="none">
+        <path d="M36 96 v-16 h16"/><path d="M224 96 v-16 h-16"/>
+        <path d="M36 312 v16 h16"/><path d="M224 312 v16 h-16"/>
+      </g>
+      <rect x="9" y="347" width="242" height="164" fill="#FFFDF7"/>
+      <text x="130" y="378" font-family="Segoe UI,Arial" font-size="12.5" fill="#5B6B58" text-anchor="middle">Aponte para a água</text>
+      <text x="130" y="396" font-family="Segoe UI,Arial" font-size="12.5" fill="#5B6B58" text-anchor="middle">ou para a margem da trilha</text>
+      <circle cx="130" cy="444" r="30" fill="#fff" stroke="#1E7A4B" stroke-width="3"/>
+      <circle cx="130" cy="444" r="22" fill="#1E7A4B"/>
+      <text x="130" y="492" font-family="Segoe UI,Arial" font-size="10" fill="#8A8574" text-anchor="middle">A foto só sai do celular quando você envia.</text></g>
+              <rect x="96" y="494" width="68" height="4" rx="2" fill="#C9C3B4"/>
+            </svg>
+            <p>2. Fotografa a água ou a margem</p>
+          </div>
+          <div class="tela">
+            <svg viewBox="0 0 260 520" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0" y="0" width="260" height="520" rx="34" fill="#16231C"/>
+              <rect x="9" y="9" width="242" height="502" rx="27" fill="#FFFDF7"/>
+              <rect x="98" y="16" width="64" height="7" rx="3.5" fill="#16231C"/>
+              <g><rect x="9" y="9" width="242" height="52" rx="27" fill="#14452F"/><rect x="9" y="40" width="242" height="21" fill="#14452F"/><text x="130" y="47" font-family="Segoe UI,Arial" font-size="15" font-weight="700" fill="#F7D070" text-anchor="middle" letter-spacing="1.4">ECO TECH</text>
+      <rect x="9" y="61" width="242" height="118" fill="#1B6E8C"/>
+      <rect x="9" y="61" width="242" height="34" fill="#3FA96B" opacity=".75"/>
+      <rect x="9" y="95" width="242" height="62" fill="#40C4E0" opacity=".55"/>
+      <rect x="9" y="157" width="242" height="22" fill="#E09428" opacity=".6"/>
+      <circle cx="188" cy="168" r="7" fill="#EC2AB4"/>
+      <rect x="54" y="162" width="26" height="9" rx="2" fill="#EC2AB4"/>
+      <text x="20" y="199" font-family="Segoe UI,Arial" font-size="10" fill="#8A8574">Camadas identificadas pela IA</text>
+      <circle cx="66" cy="256" r="34" fill="none" stroke="#E7E2D3" stroke-width="9"/>
+      <circle cx="66" cy="256" r="34" fill="none" stroke="#1E7A4B" stroke-width="9" stroke-linecap="round"
+              stroke-dasharray="214" stroke-dashoffset="39" transform="rotate(-90 66 256)"/>
+      <text x="66" y="264" font-family="Segoe UI,Arial" font-size="22" font-weight="800" fill="#14452F" text-anchor="middle">82</text>
+      <text x="112" y="246" font-family="Segoe UI,Arial" font-size="14" font-weight="800" fill="#1E7A4B">Área preservada</text>
+      <text x="112" y="266" font-family="Segoe UI,Arial" font-size="10.5" fill="#5B6B58">Água clara e vegetação</text>
+      <text x="112" y="280" font-family="Segoe UI,Arial" font-size="10.5" fill="#5B6B58">presente na margem.</text>
+      <g font-family="Segoe UI,Arial" font-size="10" fill="#5B6B58">
+        <rect x="24" y="306" width="9" height="9" rx="2" fill="#40C4E0"/><text x="40" y="315">Água clara</text>
+        <rect x="150" y="306" width="62" height="7" rx="3.5" fill="#E7E2D3"/><rect x="150" y="306" width="44" height="7" rx="3.5" fill="#40C4E0"/>
+        <text x="220" y="314" font-weight="700">71%</text>
+        <rect x="24" y="330" width="9" height="9" rx="2" fill="#48C46E"/><text x="40" y="339">Vegetação</text>
+        <rect x="150" y="330" width="62" height="7" rx="3.5" fill="#E7E2D3"/><rect x="150" y="330" width="14" height="7" rx="3.5" fill="#48C46E"/>
+        <text x="220" y="338" font-weight="700">22%</text>
+        <rect x="24" y="354" width="9" height="9" rx="2" fill="#EC2AB4"/><text x="40" y="363">Resíduo</text>
+        <rect x="150" y="354" width="62" height="7" rx="3.5" fill="#E7E2D3"/><rect x="150" y="354" width="4" height="7" rx="3.5" fill="#EC2AB4"/>
+        <text x="220" y="362" font-weight="700">1%</text>
+      </g>
+      <rect x="24" y="386" width="212" height="44" rx="12" fill="#FFF8E7" stroke="#E0A422"/>
+      <text x="36" y="404" font-family="Segoe UI,Arial" font-size="10" fill="#7A5A10">Achou lixo? Recolha se for seguro e</text>
+      <text x="36" y="419" font-family="Segoe UI,Arial" font-size="10" fill="#7A5A10">registre aqui para a equipe do parque.</text>
+      <rect x="24" y="442" width="212" height="44" rx="13" fill="#1E7A4B"/>
+      <text x="130" y="469" font-family="Segoe UI,Arial" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">Registrar contribuição</text></g>
+              <rect x="96" y="494" width="68" height="4" rx="2" fill="#C9C3B4"/>
+            </svg>
+            <p>3. Recebe a análise em segundos</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mock">
+    <div class="cartao">
+      <div class="mockCabeca"><h3>2. A sinalização no atrativo</h3><span>Protótipo de placa</span></div>
+      <p class="mockTexto">
+        A placa fica na entrada de cada ponto, junto com a sinalização que já existe. É o que liga o
+        mundo real ao site: sem ela, ninguém descobre que pode contribuir.
+      </p>
+      <div class="palco">
+        <svg viewBox="0 0 440 380" xmlns="http://www.w3.org/2000/svg" style="max-width:360px">
+          <ellipse cx="220" cy="364" rx="132" ry="11" fill="#14452F" opacity=".12"/>
+          <rect x="98" y="268" width="19" height="96" rx="5" fill="#7A4F26"/>
+          <rect x="323" y="268" width="19" height="96" rx="5" fill="#7A4F26"/>
+          <rect x="62" y="26" width="316" height="258" rx="18" fill="#14452F"/>
+          <rect x="70" y="34" width="300" height="242" rx="13" fill="#FBF7EC"/>
+          <rect x="70" y="34" width="300" height="46" rx="13" fill="#1E7A4B"/>
+          <rect x="70" y="66" width="300" height="14" fill="#1E7A4B"/>
+          <text x="220" y="65" font-family="Segoe UI,Arial" font-size="20" font-weight="700"
+                fill="#F7D070" text-anchor="middle" letter-spacing="2">ECO TECH</text>
+          <text x="220" y="106" font-family="Segoe UI,Arial" font-size="15" font-weight="700"
+                fill="#14452F" text-anchor="middle">Ajude a cuidar deste lugar</text>
+          <text x="220" y="126" font-family="Segoe UI,Arial" font-size="11" fill="#5B6B58" text-anchor="middle">
+            Fotografe a água ou a margem e envie.</text>
+          <text x="220" y="141" font-family="Segoe UI,Arial" font-size="11" fill="#5B6B58" text-anchor="middle">
+            Leva 20 segundos e ajuda a proteger a Chapada.</text>
+          <rect x="159" y="150" width="122" height="122" rx="8" fill="#fff" stroke="#E7E2D3"/>
+          <g transform="translate(165,156)"><rect x="0.0" y="0.0" width="30.8" height="30.8" fill="#14452F"/><rect x="4.4" y="4.4" width="22.0" height="22.0" fill="#fff"/><rect x="8.8" y="8.8" width="13.2" height="13.2" fill="#14452F"/><rect x="79.2" y="0.0" width="30.8" height="30.8" fill="#14452F"/><rect x="83.6" y="4.4" width="22.0" height="22.0" fill="#fff"/><rect x="88.0" y="8.8" width="13.2" height="13.2" fill="#14452F"/><rect x="0.0" y="79.2" width="30.8" height="30.8" fill="#14452F"/><rect x="4.4" y="83.6" width="22.0" height="22.0" fill="#fff"/><rect x="8.8" y="88.0" width="13.2" height="13.2" fill="#14452F"/><g fill="#14452F"><rect x="52.8" y="0.0" width="4.4" height="4.4"/><rect x="57.2" y="0.0" width="4.4" height="4.4"/><rect x="66.0" y="0.0" width="4.4" height="4.4"/><rect x="52.8" y="4.4" width="4.4" height="4.4"/><rect x="57.2" y="4.4" width="4.4" height="4.4"/><rect x="61.6" y="4.4" width="4.4" height="4.4"/><rect x="70.4" y="4.4" width="4.4" height="4.4"/><rect x="35.2" y="8.8" width="4.4" height="4.4"/><rect x="39.6" y="8.8" width="4.4" height="4.4"/><rect x="44.0" y="8.8" width="4.4" height="4.4"/><rect x="48.4" y="8.8" width="4.4" height="4.4"/><rect x="57.2" y="8.8" width="4.4" height="4.4"/><rect x="66.0" y="8.8" width="4.4" height="4.4"/><rect x="70.4" y="8.8" width="4.4" height="4.4"/><rect x="39.6" y="13.2" width="4.4" height="4.4"/><rect x="44.0" y="13.2" width="4.4" height="4.4"/><rect x="52.8" y="13.2" width="4.4" height="4.4"/><rect x="57.2" y="13.2" width="4.4" height="4.4"/><rect x="66.0" y="13.2" width="4.4" height="4.4"/><rect x="70.4" y="13.2" width="4.4" height="4.4"/><rect x="35.2" y="17.6" width="4.4" height="4.4"/><rect x="44.0" y="17.6" width="4.4" height="4.4"/><rect x="61.6" y="17.6" width="4.4" height="4.4"/><rect x="66.0" y="17.6" width="4.4" height="4.4"/><rect x="70.4" y="17.6" width="4.4" height="4.4"/><rect x="35.2" y="22.0" width="4.4" height="4.4"/><rect x="57.2" y="22.0" width="4.4" height="4.4"/><rect x="61.6" y="22.0" width="4.4" height="4.4"/><rect x="70.4" y="22.0" width="4.4" height="4.4"/><rect x="44.0" y="26.4" width="4.4" height="4.4"/><rect x="48.4" y="26.4" width="4.4" height="4.4"/><rect x="57.2" y="26.4" width="4.4" height="4.4"/><rect x="66.0" y="26.4" width="4.4" height="4.4"/><rect x="57.2" y="30.8" width="4.4" height="4.4"/><rect x="61.6" y="30.8" width="4.4" height="4.4"/><rect x="4.4" y="35.2" width="4.4" height="4.4"/><rect x="8.8" y="35.2" width="4.4" height="4.4"/><rect x="13.2" y="35.2" width="4.4" height="4.4"/><rect x="22.0" y="35.2" width="4.4" height="4.4"/><rect x="26.4" y="35.2" width="4.4" height="4.4"/><rect x="35.2" y="35.2" width="4.4" height="4.4"/><rect x="39.6" y="35.2" width="4.4" height="4.4"/><rect x="44.0" y="35.2" width="4.4" height="4.4"/><rect x="52.8" y="35.2" width="4.4" height="4.4"/><rect x="57.2" y="35.2" width="4.4" height="4.4"/><rect x="66.0" y="35.2" width="4.4" height="4.4"/><rect x="83.6" y="35.2" width="4.4" height="4.4"/><rect x="88.0" y="35.2" width="4.4" height="4.4"/><rect x="4.4" y="39.6" width="4.4" height="4.4"/><rect x="13.2" y="39.6" width="4.4" height="4.4"/><rect x="17.6" y="39.6" width="4.4" height="4.4"/><rect x="39.6" y="39.6" width="4.4" height="4.4"/><rect x="48.4" y="39.6" width="4.4" height="4.4"/><rect x="52.8" y="39.6" width="4.4" height="4.4"/><rect x="57.2" y="39.6" width="4.4" height="4.4"/><rect x="66.0" y="39.6" width="4.4" height="4.4"/><rect x="70.4" y="39.6" width="4.4" height="4.4"/><rect x="79.2" y="39.6" width="4.4" height="4.4"/><rect x="83.6" y="39.6" width="4.4" height="4.4"/><rect x="88.0" y="39.6" width="4.4" height="4.4"/><rect x="92.4" y="39.6" width="4.4" height="4.4"/><rect x="4.4" y="44.0" width="4.4" height="4.4"/><rect x="8.8" y="44.0" width="4.4" height="4.4"/><rect x="13.2" y="44.0" width="4.4" height="4.4"/><rect x="17.6" y="44.0" width="4.4" height="4.4"/><rect x="22.0" y="44.0" width="4.4" height="4.4"/><rect x="30.8" y="44.0" width="4.4" height="4.4"/><rect x="35.2" y="44.0" width="4.4" height="4.4"/><rect x="39.6" y="44.0" width="4.4" height="4.4"/><rect x="44.0" y="44.0" width="4.4" height="4.4"/><rect x="52.8" y="44.0" width="4.4" height="4.4"/><rect x="61.6" y="44.0" width="4.4" height="4.4"/><rect x="79.2" y="44.0" width="4.4" height="4.4"/><rect x="96.8" y="44.0" width="4.4" height="4.4"/><rect x="101.2" y="44.0" width="4.4" height="4.4"/><rect x="4.4" y="48.4" width="4.4" height="4.4"/><rect x="26.4" y="48.4" width="4.4" height="4.4"/><rect x="35.2" y="48.4" width="4.4" height="4.4"/><rect x="39.6" y="48.4" width="4.4" height="4.4"/><rect x="44.0" y="48.4" width="4.4" height="4.4"/><rect x="57.2" y="48.4" width="4.4" height="4.4"/><rect x="74.8" y="48.4" width="4.4" height="4.4"/><rect x="83.6" y="48.4" width="4.4" height="4.4"/><rect x="92.4" y="48.4" width="4.4" height="4.4"/><rect x="0.0" y="52.8" width="4.4" height="4.4"/><rect x="8.8" y="52.8" width="4.4" height="4.4"/><rect x="17.6" y="52.8" width="4.4" height="4.4"/><rect x="22.0" y="52.8" width="4.4" height="4.4"/><rect x="35.2" y="52.8" width="4.4" height="4.4"/><rect x="39.6" y="52.8" width="4.4" height="4.4"/><rect x="44.0" y="52.8" width="4.4" height="4.4"/><rect x="48.4" y="52.8" width="4.4" height="4.4"/><rect x="57.2" y="52.8" width="4.4" height="4.4"/><rect x="66.0" y="52.8" width="4.4" height="4.4"/><rect x="79.2" y="52.8" width="4.4" height="4.4"/><rect x="96.8" y="52.8" width="4.4" height="4.4"/><rect x="0.0" y="57.2" width="4.4" height="4.4"/><rect x="4.4" y="57.2" width="4.4" height="4.4"/><rect x="30.8" y="57.2" width="4.4" height="4.4"/><rect x="66.0" y="57.2" width="4.4" height="4.4"/><rect x="70.4" y="57.2" width="4.4" height="4.4"/><rect x="74.8" y="57.2" width="4.4" height="4.4"/><rect x="88.0" y="57.2" width="4.4" height="4.4"/><rect x="96.8" y="57.2" width="4.4" height="4.4"/><rect x="0.0" y="61.6" width="4.4" height="4.4"/><rect x="17.6" y="61.6" width="4.4" height="4.4"/><rect x="26.4" y="61.6" width="4.4" height="4.4"/><rect x="30.8" y="61.6" width="4.4" height="4.4"/><rect x="39.6" y="61.6" width="4.4" height="4.4"/><rect x="44.0" y="61.6" width="4.4" height="4.4"/><rect x="52.8" y="61.6" width="4.4" height="4.4"/><rect x="66.0" y="61.6" width="4.4" height="4.4"/><rect x="74.8" y="61.6" width="4.4" height="4.4"/><rect x="79.2" y="61.6" width="4.4" height="4.4"/><rect x="88.0" y="61.6" width="4.4" height="4.4"/><rect x="92.4" y="61.6" width="4.4" height="4.4"/><rect x="0.0" y="66.0" width="4.4" height="4.4"/><rect x="8.8" y="66.0" width="4.4" height="4.4"/><rect x="13.2" y="66.0" width="4.4" height="4.4"/><rect x="22.0" y="66.0" width="4.4" height="4.4"/><rect x="30.8" y="66.0" width="4.4" height="4.4"/><rect x="35.2" y="66.0" width="4.4" height="4.4"/><rect x="48.4" y="66.0" width="4.4" height="4.4"/><rect x="52.8" y="66.0" width="4.4" height="4.4"/><rect x="57.2" y="66.0" width="4.4" height="4.4"/><rect x="88.0" y="66.0" width="4.4" height="4.4"/><rect x="0.0" y="70.4" width="4.4" height="4.4"/><rect x="4.4" y="70.4" width="4.4" height="4.4"/><rect x="8.8" y="70.4" width="4.4" height="4.4"/><rect x="22.0" y="70.4" width="4.4" height="4.4"/><rect x="26.4" y="70.4" width="4.4" height="4.4"/><rect x="52.8" y="70.4" width="4.4" height="4.4"/><rect x="61.6" y="70.4" width="4.4" height="4.4"/><rect x="66.0" y="70.4" width="4.4" height="4.4"/><rect x="74.8" y="70.4" width="4.4" height="4.4"/><rect x="83.6" y="70.4" width="4.4" height="4.4"/><rect x="88.0" y="70.4" width="4.4" height="4.4"/><rect x="96.8" y="70.4" width="4.4" height="4.4"/><rect x="101.2" y="70.4" width="4.4" height="4.4"/><rect x="105.6" y="70.4" width="4.4" height="4.4"/><rect x="57.2" y="74.8" width="4.4" height="4.4"/><rect x="79.2" y="74.8" width="4.4" height="4.4"/><rect x="88.0" y="74.8" width="4.4" height="4.4"/><rect x="96.8" y="74.8" width="4.4" height="4.4"/><rect x="39.6" y="79.2" width="4.4" height="4.4"/><rect x="44.0" y="79.2" width="4.4" height="4.4"/><rect x="66.0" y="79.2" width="4.4" height="4.4"/><rect x="70.4" y="79.2" width="4.4" height="4.4"/><rect x="79.2" y="79.2" width="4.4" height="4.4"/><rect x="96.8" y="79.2" width="4.4" height="4.4"/><rect x="35.2" y="83.6" width="4.4" height="4.4"/><rect x="39.6" y="83.6" width="4.4" height="4.4"/><rect x="44.0" y="83.6" width="4.4" height="4.4"/><rect x="52.8" y="83.6" width="4.4" height="4.4"/><rect x="57.2" y="83.6" width="4.4" height="4.4"/><rect x="61.6" y="83.6" width="4.4" height="4.4"/><rect x="66.0" y="83.6" width="4.4" height="4.4"/><rect x="70.4" y="83.6" width="4.4" height="4.4"/><rect x="74.8" y="83.6" width="4.4" height="4.4"/><rect x="79.2" y="83.6" width="4.4" height="4.4"/><rect x="83.6" y="83.6" width="4.4" height="4.4"/><rect x="92.4" y="83.6" width="4.4" height="4.4"/><rect x="96.8" y="83.6" width="4.4" height="4.4"/><rect x="35.2" y="88.0" width="4.4" height="4.4"/><rect x="52.8" y="88.0" width="4.4" height="4.4"/><rect x="61.6" y="88.0" width="4.4" height="4.4"/><rect x="70.4" y="88.0" width="4.4" height="4.4"/><rect x="74.8" y="88.0" width="4.4" height="4.4"/><rect x="79.2" y="88.0" width="4.4" height="4.4"/><rect x="105.6" y="88.0" width="4.4" height="4.4"/><rect x="39.6" y="92.4" width="4.4" height="4.4"/><rect x="52.8" y="92.4" width="4.4" height="4.4"/><rect x="61.6" y="92.4" width="4.4" height="4.4"/><rect x="66.0" y="92.4" width="4.4" height="4.4"/><rect x="74.8" y="92.4" width="4.4" height="4.4"/><rect x="79.2" y="92.4" width="4.4" height="4.4"/><rect x="83.6" y="92.4" width="4.4" height="4.4"/><rect x="39.6" y="96.8" width="4.4" height="4.4"/><rect x="44.0" y="96.8" width="4.4" height="4.4"/><rect x="48.4" y="96.8" width="4.4" height="4.4"/><rect x="57.2" y="96.8" width="4.4" height="4.4"/><rect x="88.0" y="96.8" width="4.4" height="4.4"/><rect x="105.6" y="96.8" width="4.4" height="4.4"/><rect x="44.0" y="101.2" width="4.4" height="4.4"/><rect x="48.4" y="101.2" width="4.4" height="4.4"/><rect x="70.4" y="101.2" width="4.4" height="4.4"/><rect x="74.8" y="101.2" width="4.4" height="4.4"/><rect x="79.2" y="101.2" width="4.4" height="4.4"/><rect x="88.0" y="101.2" width="4.4" height="4.4"/><rect x="96.8" y="101.2" width="4.4" height="4.4"/><rect x="35.2" y="105.6" width="4.4" height="4.4"/><rect x="44.0" y="105.6" width="4.4" height="4.4"/><rect x="52.8" y="105.6" width="4.4" height="4.4"/><rect x="66.0" y="105.6" width="4.4" height="4.4"/><rect x="83.6" y="105.6" width="4.4" height="4.4"/><rect x="88.0" y="105.6" width="4.4" height="4.4"/><rect x="92.4" y="105.6" width="4.4" height="4.4"/><rect x="96.8" y="105.6" width="4.4" height="4.4"/><rect x="101.2" y="105.6" width="4.4" height="4.4"/><rect x="105.6" y="105.6" width="4.4" height="4.4"/></g></g>
+        </svg>
+      </div>
+      <p class="notaMock">O código da placa é ilustrativo, para mostrar o formato.</p>
+    </div>
+  </div>
+
+  <div class="mock">
+    <div class="cartao">
+      <div class="mockCabeca"><h3>3. A estação de sensores</h3><span>Protótipo da etapa seguinte</span></div>
+      <p class="mockTexto">
+        Nos pontos de maior visitação, uma estação fixa mede a água o tempo todo e envia os valores
+        para o mesmo painel que recebe as fotos. As fotos cobrem a área toda; a estação dá a medida
+        precisa nos pontos principais.
+      </p>
+      <div class="palco">
+        <svg viewBox="0 0 820 340" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ge" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#2E86AB"/><stop offset="1" stop-color="#134F68"/></linearGradient>
+            <marker id="seta" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto">
+              <path d="M0 0 L9 4.5 L0 9 z" fill="#8A5A2B"/></marker>
+          </defs>
+          <rect x="20" y="196" width="330" height="112" rx="12" fill="url(#ge)"/>
+          <g stroke="#BEEBF5" stroke-width="2" opacity=".45" stroke-linecap="round">
+            <path d="M46 222 h44"/><path d="M120 244 h60"/><path d="M60 274 h52"/><path d="M212 258 h58"/>
+          </g>
+          <path d="M20 196 h330 v-14 q-60 -14 -120 -2 q-70 14 -128 -6 q-40 -14 -82 4 z" fill="#8A5A2B"/>
+          <path d="M20 182 q54 -18 104 -2 q64 20 126 0 q56 -16 100 2 v-11 q-52 -20 -108 -2 q-62 20 -122 0 q-50 -16 -100 4 z" fill="#3FA96B"/>
+          <rect x="196" y="66" width="12" height="150" rx="4" fill="#5B6B58"/>
+          <g transform="translate(202,62) rotate(-16)">
+            <rect x="-56" y="-14" width="112" height="30" rx="4" fill="#1B3A5C"/>
+            <g stroke="#4E7FA8" stroke-width="1.4">
+              <path d="M-28 -14 v30"/><path d="M0 -14 v30"/><path d="M28 -14 v30"/><path d="M-56 1 h112"/>
+            </g>
+          </g>
+          <path d="M202 66 v-28" stroke="#5B6B58" stroke-width="4"/>
+          <g fill="none" stroke="#E0A422" stroke-width="3" stroke-linecap="round">
+            <path d="M214 30 q10 10 0 20"/><path d="M226 22 q18 18 0 36"/>
+          </g>
+          <rect x="182" y="120" width="40" height="30" rx="5" fill="#F6F1E4" stroke="#5B6B58"/>
+          <circle cx="192" cy="135" r="3.4" fill="#1E7A4B"/><circle cx="204" cy="135" r="3.4" fill="#E0A422"/>
+          <path d="M202 216 v46" stroke="#3C4A3A" stroke-width="3"/>
+          <rect x="193" y="260" width="18" height="30" rx="5" fill="#C9C3B4" stroke="#5B6B58"/>
+          <circle cx="202" cy="284" r="3" fill="#2E86AB"/>
+          <g font-family="Segoe UI,Arial" font-size="12" fill="#14452F">
+            <path d="M244 26 h74" stroke="#8A5A2B" stroke-width="1.3"/>
+            <text x="324" y="18" font-weight="700">Antena</text>
+            <text x="324" y="32" font-size="10.5" fill="#5B6B58">envia a medição algumas vezes ao dia</text>
+            <path d="M264 52 h54" stroke="#8A5A2B" stroke-width="1.3"/>
+            <text x="324" y="50" font-weight="700">Painel solar</text>
+            <text x="324" y="64" font-size="10.5" fill="#5B6B58">energia própria, sem rede elétrica</text>
+            <path d="M226 135 h92" stroke="#8A5A2B" stroke-width="1.3"/>
+            <text x="324" y="128" font-weight="700">Controlador</text>
+            <text x="324" y="142" font-size="10.5" fill="#5B6B58">guarda a leitura quando não há sinal</text>
+            <path d="M216 280 h150" stroke="#8A5A2B" stroke-width="1.3"/>
+            <text x="372" y="274" font-weight="700">Sonda submersa</text>
+            <text x="372" y="288" font-size="10.5" fill="#5B6B58">turbidez, pH e temperatura da água</text>
+          </g>
+          <path d="M566 176 h48" stroke="#8A5A2B" stroke-width="2" marker-end="url(#seta)" fill="none"/>
+          <g transform="translate(624,120)">
+            <rect x="0" y="0" width="174" height="114" rx="14" fill="#14452F"/>
+            <rect x="12" y="12" width="150" height="90" rx="8" fill="#FBF7EC"/>
+            <text x="87" y="42" font-family="Segoe UI,Arial" font-size="12.5" font-weight="700" fill="#14452F" text-anchor="middle">Painel Eco Tech</text>
+            <g font-family="Segoe UI,Arial" font-size="10" fill="#5B6B58">
+              <circle cx="32" cy="62" r="4" fill="#1E7A4B"/><text x="44" y="66">Estação: pH 7,1</text>
+              <circle cx="32" cy="82" r="4" fill="#C1521E"/><text x="44" y="86">Fotos: 3 alertas hoje</text>
+            </g>
+          </g>
+          <text x="711" y="256" font-family="Segoe UI,Arial" font-size="9.5" fill="#5B6B58" text-anchor="middle">
+            a mesma tela recebe sensor e foto de turista</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="mock">
+    <div class="cartao">
+      <div class="mockCabeca"><h3>4. O painel da gestão do parque</h3><span>Protótipo de tela</span></div>
+      <p class="mockTexto">
+        É aqui que o projeto vira decisão. O mapa mostra a cor de cada ponto e a lista ordena pelo
+        que está pior, para a equipe saber aonde ir primeiro na semana.
+      </p>
+      <div class="palco">
+        <svg viewBox="0 0 860 400" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="10" width="840" height="380" rx="16" fill="#16231C"/>
+          <rect x="10" y="10" width="840" height="34" rx="16" fill="#0E1A13"/>
+          <rect x="10" y="34" width="840" height="12" fill="#0E1A13"/>
+          <circle cx="34" cy="27" r="5" fill="#C1521E"/><circle cx="52" cy="27" r="5" fill="#E0A422"/>
+          <circle cx="70" cy="27" r="5" fill="#3FA96B"/>
+          <rect x="96" y="18" width="300" height="18" rx="9" fill="#22332A"/>
+          <text x="110" y="31" font-family="Segoe UI,Arial" font-size="10" fill="#8FAE99">painel.ecotech.chapadadasmesas</text>
+          <rect x="22" y="52" width="816" height="326" rx="10" fill="#F6F1E4"/>
+          <text x="44" y="40" font-family="Segoe UI,Arial" font-size="0" fill="#fff">.</text>
+          <text x="44" y="72" font-family="Segoe UI,Arial" font-size="0">.</text>
+          <text x="44" y="66" font-family="Segoe UI,Arial" font-size="0">.</text>
+          <text x="44" y="68" font-family="Segoe UI,Arial" font-size="15" font-weight="800" fill="#14452F">Eco Tech - Monitoramento da Chapada</text>
+          <g><rect x="44" y="72" width="120" height="46" rx="10" fill="#FBF7EC" stroke="#E7E2D3"/><text x="104" y="95" font-family="Segoe UI,Arial" font-size="18" font-weight="800" fill="#14452F" text-anchor="middle">1.248</text><text x="104" y="110" font-family="Segoe UI,Arial" font-size="9" fill="#5B6B58" text-anchor="middle">fotos recebidas</text></g><g><rect x="178" y="72" width="120" height="46" rx="10" fill="#FBF7EC" stroke="#E7E2D3"/><text x="238" y="95" font-family="Segoe UI,Arial" font-size="18" font-weight="800" fill="#14452F" text-anchor="middle">72</text><text x="238" y="110" font-family="Segoe UI,Arial" font-size="9" fill="#5B6B58" text-anchor="middle">índice médio</text></g><g><rect x="312" y="72" width="120" height="46" rx="10" fill="#FBF7EC" stroke="#E7E2D3"/><text x="372" y="95" font-family="Segoe UI,Arial" font-size="18" font-weight="800" fill="#14452F" text-anchor="middle">9</text><text x="372" y="110" font-family="Segoe UI,Arial" font-size="9" fill="#5B6B58" text-anchor="middle">pontos monitorados</text></g><g><rect x="446" y="72" width="120" height="46" rx="10" fill="#FBF7EC" stroke="#E7E2D3"/><text x="506" y="95" font-family="Segoe UI,Arial" font-size="18" font-weight="800" fill="#14452F" text-anchor="middle">3</text><text x="506" y="110" font-family="Segoe UI,Arial" font-size="9" fill="#5B6B58" text-anchor="middle">alertas abertos</text></g>
+          <rect x="44" y="132" width="522" height="228" rx="12" fill="#E8F1E6" stroke="#D6DFCF"/>
+          <path d="M96 172 q78 -34 158 -10 q86 26 168 -12 q64 -30 108 4 v150 q-70 34 -140 8 q-84 -30 -160 6 q-72 34 -134 -6 z"
+                fill="#CFE3CB"/>
+          <g stroke="#7FB6D8" stroke-width="4" fill="none" stroke-linecap="round">
+            <path d="M110 300 q70 -50 132 -20 q64 32 128 -12 q54 -36 96 -6"/>
+            <path d="M242 280 q22 36 8 74"/>
+          </g>
+          <text x="60" y="152" font-family="Segoe UI,Arial" font-size="10.5" font-weight="700" fill="#5B6B58">MAPA DOS PONTOS MONITORADOS</text>
+          <g><path d="M196 190 l-9 -14 a10.5 10.5 0 1 1 18 0 z" fill="#1E7A4B"/><circle cx="196" cy="167" r="4.4" fill="#fff"/><text x="196" y="206" font-family="Segoe UI,Arial" font-size="9.5" fill="#3C4A3A" text-anchor="middle" font-weight="700">Pedra Caída</text></g><g><path d="M330 150 l-9 -14 a10.5 10.5 0 1 1 18 0 z" fill="#1E7A4B"/><circle cx="330" cy="127" r="4.4" fill="#fff"/><text x="330" y="166" font-family="Segoe UI,Arial" font-size="9.5" fill="#3C4A3A" text-anchor="middle" font-weight="700">Poço Azul</text></g><g><path d="M286 268 l-9 -14 a10.5 10.5 0 1 1 18 0 z" fill="#C1521E"/><circle cx="286" cy="245" r="4.4" fill="#fff"/><text x="286" y="284" font-family="Segoe UI,Arial" font-size="9.5" fill="#3C4A3A" text-anchor="middle" font-weight="700">Itapecuru</text></g><g><path d="M150 308 l-9 -14 a10.5 10.5 0 1 1 18 0 z" fill="#A62B1F"/><circle cx="150" cy="285" r="4.4" fill="#fff"/><text x="150" y="324" font-family="Segoe UI,Arial" font-size="9.5" fill="#3C4A3A" text-anchor="middle" font-weight="700">São Romão</text></g><g><path d="M392 236 l-9 -14 a10.5 10.5 0 1 1 18 0 z" fill="#1E7A4B"/><circle cx="392" cy="213" r="4.4" fill="#fff"/><text x="392" y="252" font-family="Segoe UI,Arial" font-size="9.5" fill="#3C4A3A" text-anchor="middle" font-weight="700">Encanto Azul</text></g><g><path d="M232 328 l-9 -14 a10.5 10.5 0 1 1 18 0 z" fill="#C1521E"/><circle cx="232" cy="305" r="4.4" fill="#fff"/><text x="232" y="344" font-family="Segoe UI,Arial" font-size="9.5" fill="#3C4A3A" text-anchor="middle" font-weight="700">Morro do Chapéu</text></g>
+          <text x="596" y="124" font-family="Segoe UI,Arial" font-size="10.5" font-weight="700" fill="#5B6B58">PRIORIDADE DA SEMANA</text>
+          <g><rect x="596" y="132" width="232" height="44" rx="9" fill="#FBF7EC" stroke="#E7E2D3"/><circle cx="614" cy="154" r="6" fill="#A62B1F"/><text x="630" y="151" font-family="Segoe UI,Arial" font-size="11.5" font-weight="700" fill="#14452F">São Romão</text><text x="630" y="166" font-family="Segoe UI,Arial" font-size="9.5" fill="#5B6B58">12 fotos com resíduo em 48h</text><text x="816" y="158" font-family="Segoe UI,Arial" font-size="16" font-weight="800" fill="#A62B1F" text-anchor="end">34</text></g><g><rect x="596" y="184" width="232" height="44" rx="9" fill="#FBF7EC" stroke="#E7E2D3"/><circle cx="614" cy="206" r="6" fill="#C1521E"/><text x="630" y="203" font-family="Segoe UI,Arial" font-size="11.5" font-weight="700" fill="#14452F">Itapecuru</text><text x="630" y="218" font-family="Segoe UI,Arial" font-size="9.5" fill="#5B6B58">sedimento desde a chuva de terça</text><text x="816" y="210" font-family="Segoe UI,Arial" font-size="16" font-weight="800" fill="#C1521E" text-anchor="end">58</text></g><g><rect x="596" y="236" width="232" height="44" rx="9" fill="#FBF7EC" stroke="#E7E2D3"/><circle cx="614" cy="258" r="6" fill="#C1521E"/><text x="630" y="255" font-family="Segoe UI,Arial" font-size="11.5" font-weight="700" fill="#14452F">Morro do Chapéu</text><text x="630" y="270" font-family="Segoe UI,Arial" font-size="9.5" fill="#5B6B58">vegetação escassa no início da trilha</text><text x="816" y="262" font-family="Segoe UI,Arial" font-size="16" font-weight="800" fill="#C1521E" text-anchor="end">62</text></g><g><rect x="596" y="288" width="232" height="44" rx="9" fill="#FBF7EC" stroke="#E7E2D3"/><circle cx="614" cy="310" r="6" fill="#1E7A4B"/><text x="630" y="307" font-family="Segoe UI,Arial" font-size="11.5" font-weight="700" fill="#14452F">Pedra Caída</text><text x="630" y="322" font-family="Segoe UI,Arial" font-size="9.5" fill="#5B6B58">estável há três semanas</text><text x="816" y="314" font-family="Segoe UI,Arial" font-size="16" font-weight="800" fill="#1E7A4B" text-anchor="end">88</text></g>
+          <rect x="596" y="340" width="232" height="20" rx="6" fill="#FFF8E7" stroke="#E0A422"/>
+          <text x="712" y="354" font-family="Segoe UI,Arial" font-size="9.5" fill="#7A5A10" text-anchor="middle">
+            3 pontos precisam de visita esta semana</text>
+        </svg>
+      </div>
+      <p class="notaMock">Os números das telas são exemplos de demonstração, não medições reais.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOBRE ============ -->
+<section class="pagina" id="sobre">
+  <h2>Sobre o Projeto</h2>
+  <div class="grade g2">
+    <div class="cartao">
+      <h3>Objetivo geral</h3>
+      <p style="font-size:.95rem">
+        Unir tecnologia, turismo sustentável e preservação ambiental na Chapada das Mesas, por meio
+        de um site interativo e de um sistema inteligente de monitoramento da qualidade das águas.
+      </p>
+      <h3 style="margin-top:16px">Objetivos específicos</h3>
+      <ul style="font-size:.93rem;padding-left:20px;margin:0">
+        <li>Facilitar o acesso às informações turísticas da região.</li>
+        <li>Promover a conscientização ambiental de visitantes e comunidade.</li>
+        <li>Contribuir para a conservação dos recursos naturais.</li>
+        <li>Envolver o turista no monitoramento, por meio da ciência cidadã.</li>
+      </ul>
+    </div>
+    <div class="cartao">
+      <h3>Metodologia</h3>
+      <ol style="font-size:.93rem;padding-left:20px;margin:0 0 16px">
+        <li>Levantamento dos atrativos e dos problemas ambientais da região.</li>
+        <li>Construção do site interativo, funcionando sem internet.</li>
+        <li>Programação da análise de imagem por cor, brilho e saturação.</li>
+        <li>Teste com imagens de água limpa, água com sedimento e margem com resíduo.</li>
+        <li>Organização dos resultados em um painel de monitoramento.</li>
+      </ol>
+      <h3>Resultados esperados</h3>
+      <p style="font-size:.93rem;margin:0">
+        Um canal simples para que qualquer visitante colabore com a preservação, e um mapa vivo que
+        mostra onde a Chapada precisa de atenção primeiro.
+      </p>
+    </div>
+  </div>
+
+  <div class="cartao" style="margin-top:18px">
+    <span class="etiqueta ouro">Transparência</span>
+    <h3 style="margin-top:10px">O que já funciona e o que ainda é proposta</h3>
+    <div class="grade g2" style="margin-top:6px">
+      <div>
+        <p style="font-weight:700;color:var(--verde);margin:0 0 6px">Funciona agora, aqui neste computador</p>
+        <ul style="font-size:.92rem;padding-left:20px;margin:0">
+          <li>O site completo, sem precisar de internet.</li>
+          <li>O guia dos atrativos com orientação de preservação.</li>
+          <li>A análise de imagem por visão computacional.</li>
+          <li>O painel que junta as contribuições.</li>
+        </ul>
+      </div>
+      <div>
+        <p style="font-weight:700;color:var(--terra);margin:0 0 6px">Ainda é proposta para a próxima etapa</p>
+        <ul style="font-size:.92rem;padding-left:20px;margin:0">
+          <li>As estações físicas de sensores nas cachoeiras.</li>
+          <li>O servidor na internet reunindo as fotos de todos os turistas.</li>
+          <li>O treinamento da IA com um banco de fotos reais da Chapada.</li>
+          <li>A parceria com a gestão do parque e com as agências de turismo.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="cartao" style="margin-top:18px;text-align:center">
+    <p style="margin:0;font-size:.95rem">
+      <b>Eco Tech — Turismo Sustentável</b><br>
+      Mariana &middot; Feira de Ciências do CELAM &middot; Carolina — MA<br>
+      <span style="color:var(--texto-suave);font-size:.86rem">18 de setembro de 2026</span>
+    </p>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function(){
+"use strict";
+
+/* =========================================================
+   1. DADOS DOS ATRATIVOS
+   ========================================================= */
+var ATRATIVOS = [
+  { nome:"Complexo da Pedra Caída", local:"Carolina", regiao:"Carolina",
+    cores:["#1E7A4B","#3FA96B"],
+    imagem:"assets/atrativos/pedra-caida.jpg", alt:"Cânion de arenito com uma cachoeira alta e piscina verde no Complexo da Pedra Caída.",
+    desc:"Santuário ecológico com cachoeiras que caem dentro de um paredão de pedra, cercadas por mata fechada. É o cartão-postal mais conhecido de quem chega a Carolina.",
+    dica:"Trilha em fila única: sair do caminho marcado pisoteia a vegetação que segura a barranca do riacho." },
+  { nome:"Cachoeira de São Romão", local:"Região do Parque Nacional", regiao:"Parque",
+    cores:["#2E86AB","#5FB6D6"],
+    imagem:"assets/atrativos/sao-romao.jpg", alt:"Cortina larga de água caindo de um paredão de arenito em São Romão.",
+    desc:"A cachoeira de maior volume de água da região, formando uma cortina larga e um poço extenso para banho.",
+    dica:"Repelente e protetor solar formam película na superfície da água. O ideal é aplicar bem antes do banho." },
+  { nome:"Cachoeira do Prata", local:"Região do Parque Nacional", regiao:"Parque",
+    cores:["#14452F","#1E7A4B"],
+    imagem:"assets/atrativos/prata.jpg", alt:"Queda alta de água branca sobre paredão avermelhado e poço natural na Cachoeira do Prata.",
+    desc:"Queda alta em meio à mata, com poço de água clara. Fica na mesma área protegida de São Romão, na divisa do Maranhão com o Tocantins.",
+    dica:"Sabão, xampu e sabonete não entram no poço: eles alimentam algas e mudam a cor da água." },
+  { nome:"Poço Azul", local:"Riachão", regiao:"Riachão",
+    cores:["#2E86AB","#7ED3E8"],
+    imagem:"assets/atrativos/poco-azul.jpg", alt:"Poço de água azul-esverdeada com pequenas quedas dentro de um cânion de arenito.",
+    desc:"Nascente de água azul-esverdeada, tão transparente que dá para ver o fundo e os peixes.",
+    dica:"A cor azul vem da pureza da água. Levantar o sedimento do fundo com o pé apaga o azul por horas." },
+  { nome:"Encanto Azul", local:"Riachão", regiao:"Riachão",
+    cores:["#1B6E8C","#4FA8C7"],
+    imagem:"assets/atrativos/encanto-azul.jpg", alt:"Piscina natural profunda de água azul-esverdeada entre paredões escuros no Encanto Azul.",
+    desc:"Outra nascente de água cristalina da região de Riachão, muito procurada para flutuação.",
+    dica:"Número de visitantes por vez é limitado justamente para a água ter tempo de se recuperar." },
+  { nome:"Morro do Chapéu", local:"Carolina", regiao:"Carolina",
+    cores:["#8A5A2B","#C98B4B"],
+    imagem:"assets/atrativos/morro-chapeu.jpg", alt:"Morro do Chapéu, formação de topo plano acima do cerrado da Chapada das Mesas.",
+    desc:"Formação de topo plano, típica da Chapada das Mesas, com trilha ecológica e vista aberta do relevo em mesas.",
+    dica:"O chão da trilha é arenoso e frágil. Lixo enterrado aqui reaparece na primeira chuva, dentro do riacho." },
+  { nome:"Portal da Chapada", local:"Carolina", regiao:"Carolina",
+    cores:["#A8702F","#E0A422"],
+    imagem:"assets/atrativos/portal-chapada.jpg", alt:"Arco natural de arenito vermelho enquadrando o vale verde e as mesas distantes.",
+    desc:"Paredão rochoso com abertura natural em forma de portal, um dos mirantes mais fotografados da região.",
+    dica:"Nada de escrever ou riscar a rocha: a marca fica por décadas na pedra arenosa." },
+  { nome:"Cachoeiras Gêmeas do Itapecuru", local:"Carolina", regiao:"Carolina",
+    cores:["#1E7A4B","#66C08A"],
+    imagem:"assets/atrativos/itapecuru.jpg", alt:"Duas quedas d’água lado a lado sobre um poço raso na Cachoeira do Itapecuru.",
+    desc:"Duas quedas lado a lado, formando poços rasos e agradáveis para banho de família.",
+    dica:"Ponto de fácil acesso e muita visitação: é onde mais aparece garrafa e sacola na margem." },
+  { nome:"Morro das Figuras", local:"Região do Parque Nacional", regiao:"Parque",
+    cores:["#6B4A22","#B98B4B"],
+    imagem:"assets/atrativos/morro-figuras.jpg", alt:"Abrigo rochoso de arenito com marcas antigas e cerrado ao redor no Morro das Figuras.",
+    desc:"Trekking até um paredão com inscrições rupestres, registro da ocupação humana muito antiga na região.",
+    dica:"Não tocar nas pinturas: a oleosidade da mão acelera o desgaste das figuras." }
+];
+
+var SENSORES = [
+  { nome:"Pedra Caída — poço principal", turbidez:"4,2", ph:"7,1", temp:"26,4 °C", estado:"Normal", cor:"#1E7A4B" },
+  { nome:"São Romão — a jusante da queda", turbidez:"11,8", ph:"6,9", temp:"27,1 °C", estado:"Atenção", cor:"#C1521E" },
+  { nome:"Poço Azul — nascente", turbidez:"1,3", ph:"7,4", temp:"25,2 °C", estado:"Normal", cor:"#1E7A4B" },
+  { nome:"Itapecuru — área de banho", turbidez:"6,7", ph:"7,0", temp:"27,8 °C", estado:"Normal", cor:"#1E7A4B" }
+];
+
+/* =========================================================
+   2. NAVEGACAO ENTRE ABAS
+   ========================================================= */
+var abas = document.getElementById("abas");
+abas.addEventListener("click", function(e){
+  var b = e.target.closest("button");
+  if(!b) return;
+  var alvo = b.getAttribute("data-alvo");
+  Array.prototype.forEach.call(abas.querySelectorAll("button"), function(x){ x.classList.toggle("ativa", x===b); });
+  Array.prototype.forEach.call(document.querySelectorAll("section.pagina"), function(s){ s.classList.toggle("ativa", s.id===alvo); });
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+
+/* Setas do teclado trocam de aba: funciona com apresentador sem fio. */
+document.addEventListener("keydown", function(e){
+  if(e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+  var alvo = e.target;
+  if(alvo && /^(INPUT|SELECT|TEXTAREA)$/.test(alvo.tagName)) return;
+  var botoes = Array.prototype.slice.call(abas.querySelectorAll("button"));
+  var i = botoes.findIndex(function(b){ return b.classList.contains("ativa"); });
+  var proximo = botoes[(i + (e.key === "ArrowRight" ? 1 : botoes.length - 1)) % botoes.length];
+  if(proximo) proximo.click();
+});
+
+/* =========================================================
+   3. GUIA DOS ATRATIVOS
+   ========================================================= */
+var lista = document.getElementById("listaAtrativos");
+var filtros = document.getElementById("filtros");
+var regioes = ["Todos","Carolina","Riachão","Parque"];
+var rotulos = { "Todos":"Todos os atrativos", "Carolina":"Carolina", "Riachão":"Riachão", "Parque":"Parque Nacional" };
+
+regioes.forEach(function(r,i){
+  var b = document.createElement("button");
+  b.textContent = rotulos[r];
+  b.setAttribute("data-regiao", r);
+  if(i===0) b.classList.add("ativa");
+  filtros.appendChild(b);
+});
+
+function desenhaAtrativos(regiao){
+  lista.innerHTML = "";
+  ATRATIVOS.filter(function(a){ return regiao==="Todos" || a.regiao===regiao; }).forEach(function(a){
+    var d = document.createElement("article");
+    d.className = "cartao atrativo";
+    d.innerHTML =
+      '<div class="capa" style="background:linear-gradient(135deg,'+a.cores[0]+','+a.cores[1]+')">'+
+        '<img src="'+a.imagem+'" alt="'+a.alt+'" loading="lazy" decoding="async">'+
+        '<span class="capaSelo">Ilustração visual</span>'+
+      '</div>'+
+      '<div class="corpo">'+
+        '<h3>'+a.nome+'</h3>'+
+        '<p class="local">'+a.local+'</p>'+
+        '<p class="desc">'+a.desc+'</p>'+
+        '<div class="dica"><b>Cuidado que faz diferença:</b> '+a.dica+'</div>'+
+      '</div>';
+    lista.appendChild(d);
+  });
+}
+filtros.addEventListener("click", function(e){
+  var b = e.target.closest("button");
+  if(!b) return;
+  Array.prototype.forEach.call(filtros.querySelectorAll("button"), function(x){ x.classList.toggle("ativa", x===b); });
+  desenhaAtrativos(b.getAttribute("data-regiao"));
+});
+desenhaAtrativos("Todos");
+
+/* seletor de local no modulo de ciencia cidada */
+var selLocal = document.getElementById("local");
+ATRATIVOS.forEach(function(a){
+  var o = document.createElement("option");
+  o.value = a.nome; o.textContent = a.nome + " — " + a.local;
+  selLocal.appendChild(o);
+});
+var outro = document.createElement("option");
+outro.value = "Outro ponto da Chapada"; outro.textContent = "Outro ponto da Chapada";
+selLocal.appendChild(outro);
+
+/* =========================================================
+   4. AMOSTRAS DE DEMONSTRACAO (desenhadas pelo proprio site)
+   ========================================================= */
+function ruido(ctx,w,h,y0,y1,base,variacao){
+  for(var y=y0;y<y1;y+=3){
+    for(var x=0;x<w;x+=3){
+      var v = (Math.random()-0.5)*variacao;
+      var onda = Math.sin((x*0.05)+(y*0.13))*variacao*0.6;
+      ctx.fillStyle = "rgb("+
+        Math.max(0,Math.min(255,base[0]+v+onda))+","+
+        Math.max(0,Math.min(255,base[1]+v+onda))+","+
+        Math.max(0,Math.min(255,base[2]+v+onda))+")";
+      ctx.fillRect(x,y,3,3);
+    }
+  }
+}
+function mata(ctx,w,h0,h1){
+  ruido(ctx,w,h1,h0,h1,[46,102,58],36);
+  for(var i=0;i<160;i++){
+    var x = Math.random()*w, y = h0 + Math.random()*(h1-h0), r = 4+Math.random()*13;
+    ctx.fillStyle = "rgba("+(30+Math.random()*60|0)+","+(90+Math.random()*70|0)+","+(40+Math.random()*40|0)+",.75)";
+    ctx.beginPath(); ctx.arc(x,y,r,0,6.284); ctx.fill();
+  }
+}
+function criaAmostra(tipo){
+  var c = document.createElement("canvas");
+  c.width = 480; c.height = 300;
+  var ctx = c.getContext("2d");
+  if(tipo==="limpa"){
+    mata(ctx,480,0,96);
+    ruido(ctx,480,300,96,300,[46,134,171],34);
+    for(var i=0;i<70;i++){
+      var x=Math.random()*480,y=110+Math.random()*180;
+      ctx.strokeStyle="rgba(190,235,245,"+(0.15+Math.random()*0.3)+")";
+      ctx.lineWidth=1+Math.random()*2;
+      ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x+18+Math.random()*36,y); ctx.stroke();
+    }
+  } else if(tipo==="barrenta"){
+    mata(ctx,480,0,96);
+    ruido(ctx,480,300,96,300,[150,108,52],38);
+    for(var j=0;j<60;j++){
+      var x2=Math.random()*480,y2=110+Math.random()*180;
+      ctx.fillStyle="rgba("+(120+Math.random()*50|0)+","+(88+Math.random()*40|0)+","+(44+Math.random()*30|0)+",.6)";
+      ctx.beginPath(); ctx.ellipse(x2,y2,10+Math.random()*26,4+Math.random()*8,Math.random()*3,0,6.284); ctx.fill();
+    }
+  } else { /* residuo */
+    mata(ctx,480,0,72);
+    ruido(ctx,480,196,72,196,[46,134,171],30);
+    ruido(ctx,480,300,196,300,[176,146,104],30);
+    ctx.save();
+    ctx.translate(112,228); ctx.rotate(-0.3);
+    ctx.fillStyle="#D81B60"; ctx.fillRect(0,0,52,17); ctx.fillStyle="#F06292"; ctx.fillRect(52,4,11,9);
+    ctx.restore();
+    ctx.save();
+    ctx.translate(268,246); ctx.rotate(0.22);
+    ctx.fillStyle="#8E24AA"; ctx.beginPath();
+    ctx.moveTo(0,0); ctx.lineTo(60,-9); ctx.lineTo(74,20); ctx.lineTo(10,27); ctx.closePath(); ctx.fill();
+    ctx.restore();
+    ctx.fillStyle="#E53935"; ctx.beginPath(); ctx.arc(374,214,9,0,6.284); ctx.fill();
+    ctx.fillStyle="#8E24AA"; ctx.fillRect(186,266,38,13);
+  }
+  return c;
+}
+
+var AMOSTRAS = [
+  { id:"limpa",    titulo:"Riacho preservado" },
+  { id:"barrenta", titulo:"Água com sedimento" },
+  { id:"residuo",  titulo:"Margem com resíduo" }
+];
+var caixaAmostras = document.getElementById("amostras");
+AMOSTRAS.forEach(function(a){
+  var b = document.createElement("button");
+  var mini = criaAmostra(a.id);
+  a.canvas = mini;
+  var prev = document.createElement("canvas");
+  prev.width = 160; prev.height = 100;
+  prev.getContext("2d").drawImage(mini,0,0,160,100);
+  b.appendChild(prev);
+  var s = document.createElement("span"); s.textContent = a.titulo;
+  b.appendChild(s);
+  b.addEventListener("click", function(){ analisaFonte(mini, true); });
+  caixaAmostras.appendChild(b);
+});
+
+/* =========================================================
+   5. MOTOR DE ANALISE (visao computacional por cor)
+   ========================================================= */
+function paraHSL(r,g,b){
+  r/=255; g/=255; b/=255;
+  var max=Math.max(r,g,b), min=Math.min(r,g,b), d=max-min, h=0, s=0, l=(max+min)/2;
+  if(d!==0){
+    s = l>0.5 ? d/(2-max-min) : d/(max+min);
+    if(max===r)      h = ((g-b)/d + (g<b?6:0));
+    else if(max===g) h = ((b-r)/d + 2);
+    else             h = ((r-g)/d + 4);
+    h *= 60;
+  }
+  return [h,s,l];
+}
+
+var CLASSES = [
+  { id:"outro",     nome:"Rocha, areia e outros",        cor:[150,142,124] },
+  { id:"limpa",     nome:"Água clara",                   cor:[ 64,196,224] },
+  { id:"turva",     nome:"Água com sedimento",           cor:[224,148, 40] },
+  { id:"vegetacao", nome:"Vegetação",                    cor:[ 72,196,110] },
+  { id:"residuo",   nome:"Possível resíduo (cor artificial)", cor:[236, 42,180] }
+];
+
+function classifica(h,s,l){
+  /* Residuo: so cores que nao ocorrem na paleta natural de rocha, areia, agua e mata.
+     O azul saturado ficou de fora de proposito: confundia agua profunda com sacola. */
+  if(s>0.45 && l>0.28 && l<0.93 && (h<14 || h>=300)) return 4;
+  if(s>0.62 && l>0.40 && h>=255 && h<300)            return 4;
+  /* A fronteira entre verde e ciano fica em 160: acima disso e agua. Ate 175 a
+     vegetacao engolia o turquesa de poco raso sobre areia clara, que e
+     exatamente a cor do Poco Azul e do Encanto Azul, dois pontos do guia. */
+  if(h>=70 && h<160 && s>0.12 && l>0.06 && l<0.85)   return 3;
+  if(h>=14 && h<70  && s>0.30 && l<0.62)             return 2;
+  /* Agua clara exige cor azul/ciano de verdade. Sem o piso de saturacao, parede
+     branca, papel e ceu encoberto entravam como agua limpa. */
+  if(h>=160 && h<=255 && s>0.12 && l>0.18 && l<0.95) return 1;
+  return 0;
+}
+
+function analisa(fonte){
+  var largura = 200;
+  var prop = fonte.height / fonte.width;
+  var w = largura, hgt = Math.max(1, Math.round(largura*prop));
+  var mini = document.createElement("canvas");
+  mini.width = w; mini.height = hgt;
+  var mctx = mini.getContext("2d");
+  mctx.drawImage(fonte,0,0,w,hgt);
+  var dados = mctx.getImageData(0,0,w,hgt);
+  var px = dados.data;
+  var total = w*hgt;
+  var cont = [0,0,0,0,0];
+  var mapa = new Uint8Array(total);
+  var metade = Math.floor(hgt/2)*w;
+  var aguaPx = 0, aguaBaixoPx = 0;
+
+  for(var i=0;i<total;i++){
+    var o = i*4;
+    var hsl = paraHSL(px[o],px[o+1],px[o+2]);
+    var c = classifica(hsl[0],hsl[1],hsl[2]);
+    mapa[i] = c;
+    cont[c]++;
+    if(c===1 || c===2){ aguaPx++; if(i >= metade) aguaBaixoPx++; }
+  }
+
+  var f = cont.map(function(n){ return n/total; });
+  var agua = f[1] + f[2];
+  var pureza = agua > 0.02 ? (f[1]/agua) : 0.5;
+  var vegNorm = Math.min(1, f[3]/0.30);
+  var penalidade = Math.min(65, 2500*f[4]);
+  var indice = Math.round(Math.max(0, Math.min(100, 42 + 46*pureza + 12*vegNorm - penalidade)));
+
+  /* Porta de aplicabilidade: sem agua nem vegetacao a foto nao e de um riacho
+     nem de uma margem, e dar nota nesse caso seria inventar resultado. */
+  /* A unica coisa que a cor prova e que existe alguma cor natural na imagem.
+     Se nao ha nem agua nem vegetacao, nao ha o que medir. Decidir se a cena e
+     mesmo um curso d'agua nao cabe a nenhuma regra de cor: quem declara isso e
+     a pessoa que tirou a foto. */
+  var aguaEmbaixo = aguaPx ? (aguaBaixoPx/aguaPx) : 0;
+  var reconhecida = agua >= 0.08 || f[3] >= 0.12;
+
+  /* Azul concentrado no alto costuma ser ceu. Nao serve para recusar sozinho,
+     porque uma foto torta desmente a regra, mas serve para avisar a pessoa
+     antes de ela declarar o que fotografou. */
+  var pareceCeu = agua >= 0.25 && f[2] < 0.05 && aguaEmbaixo <= 0.15;
+
+  var confianca = !reconhecida ? "nenhuma"
+                : (agua < 0.08) ? "semAgua"
+                : (agua < 0.20) ? "poucaAgua"
+                : (aguaEmbaixo < 0.30) ? "aguaNoAlto"
+                : (f[3] < 0.10) ? "semMargem"
+                : "alta";
+
+  return { largura:w, altura:hgt, mapa:mapa, fracoes:f, agua:agua, pureza:pureza,
+           indice:indice, aguaEmbaixo:aguaEmbaixo,
+           reconhecida:reconhecida, pareceCeu:pareceCeu, confianca:confianca };
+}
+
+/* =========================================================
+   6. APRESENTACAO DO RESULTADO
+   ========================================================= */
+var visor          = document.getElementById("visor");
+var visorVazio     = document.getElementById("visorVazio");
+var tela           = document.getElementById("telaResultado");
+var blocoResultado = document.getElementById("resultado");
+var arco           = document.getElementById("arco");
+var valorIndice    = document.getElementById("valorIndice");
+var vereditoTitulo = document.getElementById("vereditoTitulo");
+var vereditoTexto  = document.getElementById("vereditoTexto");
+var caixaIndic     = document.getElementById("indicadores");
+var caixaRecom     = document.getElementById("recomendacao");
+var selo           = document.getElementById("selo");
+var declara        = document.getElementById("declara");
+var declaraPerg    = document.getElementById("declaraPergunta");
+var declaraNegado  = document.getElementById("declaraNegado");
+var declaraDica    = document.getElementById("declaraDica");
+var veredito       = document.getElementById("veredito");
+var btnEnviar      = document.getElementById("btnEnviar");
+var btnCamadas     = document.getElementById("btnCamadas");
+
+var estado = { fonte:null, analise:null, camadas:true, timerAnalise:null, timerBotao:null };
+
+function faixa(indice){
+  if(indice>=70) return { nome:"Área preservada", cor:"#1E7A4B",
+    texto:"A imagem indica água clara e vegetação presente na margem." };
+  if(indice>=45) return { nome:"Atenção", cor:"#C1521E",
+    texto:"A imagem mostra sinais que merecem acompanhamento no ponto." };
+  return { nome:"Prioridade alta", cor:"#A62B1F",
+    texto:"A imagem indica degradação visível. O ponto precisa de visita da equipe." };
+}
+
+function desenhaVisor(){
+  if(!estado.fonte || !estado.analise) return;
+  var a = estado.analise;
+  var larguraTela = Math.min(640, estado.fonte.width);
+  var alturaTela  = Math.round(larguraTela * (estado.fonte.height/estado.fonte.width));
+  tela.width = larguraTela; tela.height = alturaTela;
+  var ctx = tela.getContext("2d");
+  ctx.clearRect(0,0,larguraTela,alturaTela);
+  ctx.drawImage(estado.fonte,0,0,larguraTela,alturaTela);
+
+  if(estado.camadas){
+    var cam = document.createElement("canvas");
+    cam.width = a.largura; cam.height = a.altura;
+    var cctx = cam.getContext("2d");
+    var img = cctx.createImageData(a.largura,a.altura);
+    for(var i=0;i<a.mapa.length;i++){
+      var c = a.mapa[i], o = i*4;
+      if(c===0){ img.data[o+3]=0; continue; }
+      var cor = CLASSES[c].cor;
+      img.data[o]=cor[0]; img.data[o+1]=cor[1]; img.data[o+2]=cor[2];
+      img.data[o+3] = (c===4) ? 235 : 105;
+    }
+    cctx.putImageData(img,0,0);
+    ctx.imageSmoothingEnabled = false;
+    ctx.globalAlpha = 0.72;
+    ctx.drawImage(cam,0,0,larguraTela,alturaTela);
+    ctx.globalAlpha = 1;
+    ctx.imageSmoothingEnabled = true;
+  }
+  tela.hidden = false;
+  visorVazio.hidden = true;
+}
+
+var CONFIANCA = {
+  alta:       { rotulo:"confiança alta",  cor:"#1E7A4B", frase:"" },
+  poucaAgua:  { rotulo:"confiança média", cor:"#C1521E",
+                frase:"a área de água nesta foto é pequena, o que enfraquece a leitura; uma foto mais próxima da água dá um resultado mais firme" },
+  aguaNoAlto: { rotulo:"confiança média", cor:"#C1521E",
+                frase:"a água aparece na parte de cima do enquadramento, e não embaixo, como numa foto apontada para o curso d'água; uma foto mais direta dá um resultado mais firme" },
+  semMargem:  { rotulo:"confiança média", cor:"#C1521E",
+                frase:"a margem não aparece nesta foto, então a leitura vale apenas para a água" },
+  semAgua:    { rotulo:"confiança baixa", cor:"#C1521E",
+                frase:"não identifiquei água nesta foto; a leitura vale apenas para a vegetação da margem" }
+};
+
+var RECUSA = {
+  titulo:"Foto não reconhecida",
+  texto:"Não encontrei água nem vegetação nesta imagem.",
+  porque:"A Eco Tech mede a cor da água e da margem. Quando a imagem não tem nenhuma das " +
+         "duas, não há o que medir, e o sistema prefere não responder a responder errado.",
+  fazer:"Fotografe o riacho, a cachoeira ou a margem da trilha e envie de novo."
+};
+
+function mostraNaoReconhecida(){
+  var r = RECUSA;
+  declara.hidden = true;
+  veredito.hidden = false;
+  valorIndice.textContent = "—";
+  valorIndice.style.color = "#8A8574";
+  arco.setAttribute("stroke", "#C9C3B4");
+  arco.style.strokeDashoffset = "283";
+  vereditoTitulo.textContent = r.titulo;
+  vereditoTitulo.style.color = "#8A8574";
+  vereditoTexto.textContent = r.texto;
+  selo.hidden = true;
+  caixaIndic.innerHTML = "";
+  caixaRecom.innerHTML = "<b>Por que não deu nota:</b> " + r.porque +
+                         "<br><br><b>O que fazer:</b> " + r.fazer;
+  blocoResultado.hidden = false;
+  btnEnviar.disabled = true;
+}
+
+function mostraResultado(jaDeclarada){
+  var a = estado.analise;
+  if(!a.reconhecida){ mostraNaoReconhecida(); return; }
+  var fx = faixa(a.indice);
+  var conf = CONFIANCA[a.confianca];
+  selo.textContent = conf.rotulo;
+  selo.style.background = conf.cor;
+  selo.hidden = false;
+  valorIndice.textContent = a.indice;
+  valorIndice.style.color = fx.cor;
+  arco.setAttribute("stroke", fx.cor);
+  arco.style.strokeDashoffset = String(283 - (283*a.indice/100));
+  vereditoTitulo.textContent = fx.nome;
+  vereditoTitulo.style.color = fx.cor;
+  vereditoTexto.textContent = fx.texto;
+
+  caixaIndic.innerHTML = "";
+  [1,2,3,4].forEach(function(c){
+    var pct = a.fracoes[c]*100;
+    if(c===4 && pct<0.15) return;
+    var cor = "rgb("+CLASSES[c].cor.join(",")+")";
+    var linha = document.createElement("div");
+    linha.className = "indicador";
+    linha.innerHTML =
+      '<span class="bolinha" style="background:'+cor+'"></span>'+
+      '<span style="min-width:180px">'+CLASSES[c].nome+'</span>'+
+      '<span class="barra"><i style="width:'+Math.min(100,pct).toFixed(1)+'%;background:'+cor+'"></i></span>'+
+      '<span class="pct">'+pct.toFixed(1)+'%</span>';
+    caixaIndic.appendChild(linha);
+  });
+
+  /* Com confianca reduzida a tela mostra so a ressalva. Afirmar que a agua esta
+     clara logo depois de avisar que talvez nem haja agua anula o aviso. */
+  var obs = [];
+  if(a.fracoes[4] >= 0.0015) obs.push("foram encontrados pontos de cor artificial, compatíveis com plástico ou embalagem na margem");
+  if(a.confianca === "alta"){
+    if(a.pureza >= 0.75) obs.push("a água aparece clara, sem sinal forte de sedimento em suspensão");
+    else if(a.pureza <= 0.35) obs.push("a água aparece com bastante sedimento, o que costuma indicar erosão na margem ou chuva recente");
+    if(a.fracoes[3] < 0.06) obs.push("a vegetação na margem aparece escassa nesta imagem");
+  } else {
+    obs.push(conf.frase);
+  }
+
+  var acao;
+  if(a.confianca !== "alta") acao = "Confirme no local antes de acionar qualquer ação. Esta foto não sustenta uma conclusão firme.";
+  else if(a.indice>=70) acao = "Ponto em boas condições. Vale registrar de novo na próxima visita para acompanhar a evolução.";
+  else if(a.indice>=45) acao = "Sugerido incluir o ponto na próxima ronda de monitoramento e reforçar a sinalização de preservação.";
+  else acao = "Sugerido acionar mutirão de limpeza e avisar a gestão do parque sobre este ponto.";
+
+  caixaRecom.innerHTML = "<b>Leitura da IA:</b> " + (obs.length ? obs.join("; ") + "." : "nenhum sinal relevante identificado.") +
+                         "<br><br><b>Recomendação:</b> " + acao;
+
+  /* Amostra do proprio site ja vem declarada. Foto de visitante so vira
+     veredito depois que a pessoa diz o que fotografou. */
+  declaraPerg.hidden = false;
+  declaraNegado.hidden = true;
+  declaraDica.hidden = !a.pareceCeu;
+  if(a.pareceCeu){
+    declaraDica.textContent = "Atenção: o azul desta foto está todo na parte de cima. Se for céu, responda Não é.";
+  }
+  declara.hidden = !!jaDeclarada;
+  veredito.hidden = !jaDeclarada;
+  btnEnviar.disabled = !jaDeclarada;
+  blocoResultado.hidden = false;
+}
+
+function revelaVeredito(){
+  if(!estado.analise || !estado.analise.reconhecida) return;
+  declara.hidden = true;
+  veredito.hidden = false;
+  btnEnviar.disabled = false;
+  rolaAteResultado();
+}
+
+function rolaAteResultado(){
+  if(blocoResultado.getBoundingClientRect().bottom > window.innerHeight){
+    blocoResultado.scrollIntoView({ behavior:"smooth", block:"end" });
+  }
+}
+
+
+
+/* Falha de carregamento tem de aparecer na tela. Antes a mensagem ia para um
+   elemento oculto e o resultado da foto anterior continuava valendo. */
+function mostraFalha(mensagem){
+  if(estado.timerAnalise){ clearTimeout(estado.timerAnalise); estado.timerAnalise = null; }
+  if(estado.timerBotao){ clearTimeout(estado.timerBotao); estado.timerBotao = null; }
+  btnEnviar.textContent = "Registrar no painel";
+  estado.fonte = null;
+  estado.analise = null;
+  visor.classList.remove("analisando");
+  tela.hidden = true;
+  visorVazio.hidden = false;
+  visorVazio.textContent = mensagem;
+  blocoResultado.hidden = true;
+  btnEnviar.disabled = true;
+}
+
+function analisaFonte(fonte, jaDeclarada){
+  if(estado.timerAnalise) clearTimeout(estado.timerAnalise);
+  if(estado.timerBotao){ clearTimeout(estado.timerBotao); estado.timerBotao = null; }
+  btnEnviar.textContent = "Registrar no painel";
+  estado.fonte = fonte;
+  estado.analise = null;
+  visor.classList.add("analisando");
+  tela.hidden = true; visorVazio.hidden = false;
+  visorVazio.textContent = "Analisando a imagem...";
+  blocoResultado.hidden = true;
+  btnEnviar.disabled = true;
+  estado.timerAnalise = setTimeout(function(){
+    estado.timerAnalise = null;
+    estado.analise = analisa(fonte);
+    visor.classList.remove("analisando");
+    desenhaVisor();
+    mostraResultado(jaDeclarada);
+    /* Em notebook de tela baixa o resultado nasce fora da area visivel. */
+    rolaAteResultado();
+  }, 820);
+}
+
+document.getElementById("btnSim").addEventListener("click", revelaVeredito);
+document.getElementById("btnNao").addEventListener("click", function(){
+  declaraPerg.hidden = true;
+  declaraNegado.hidden = false;
+  veredito.hidden = true;
+  btnEnviar.disabled = true;
+});
+
+btnCamadas.addEventListener("click", function(){
+  estado.camadas = !estado.camadas;
+  btnCamadas.classList.toggle("on", estado.camadas);
+  desenhaVisor();
+});
+
+/* =========================================================
+   7. ENVIO DE FOTO
+   ========================================================= */
+var zona = document.getElementById("zonaEnvio");
+var arquivo = document.getElementById("arquivo");
+
+zona.addEventListener("click", function(){ arquivo.click(); });
+arquivo.addEventListener("change", function(){
+  if(arquivo.files && arquivo.files[0]) carrega(arquivo.files[0]);
+});
+["dragenter","dragover"].forEach(function(ev){
+  zona.addEventListener(ev, function(e){ e.preventDefault(); zona.classList.add("sobre"); });
+});
+["dragleave","drop"].forEach(function(ev){
+  zona.addEventListener(ev, function(e){ e.preventDefault(); zona.classList.remove("sobre"); });
+});
+/* Sem isto, soltar a foto fora do retangulo tracejado faz o navegador abrir o
+   arquivo e sair do site. A foto solta em qualquer ponto da pagina abre a aba
+   de analise, porque ninguem no estande vai mirar o retangulo tracejado. */
+document.addEventListener("dragover", function(e){ e.preventDefault(); });
+document.addEventListener("drop", function(e){
+  e.preventDefault();
+  var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+  if(!f) return;
+  var abaCiencia = abas.querySelector('button[data-alvo="ciencia"]');
+  if(!abaCiencia.classList.contains("ativa")) abaCiencia.click();
+  carrega(f);
+});
+
+function carrega(f){
+  /* Zera o campo para que reenviar o mesmo arquivo dispare change de novo. */
+  arquivo.value = "";
+  if(!/^image\//.test(f.type)){
+    mostraFalha("Esse arquivo não é uma imagem. Envie uma foto do riacho ou da margem.");
+    return;
+  }
+  var leitor = new FileReader();
+  leitor.onload = function(){
+    var im = new Image();
+    im.onload = function(){ analisaFonte(im); };
+    im.onerror = function(){
+      mostraFalha("Não consegui abrir essa imagem. Alguns celulares salvam em formatos que o navegador não lê. Tente uma foto em JPG ou PNG.");
+    };
+    im.src = leitor.result;
+  };
+  leitor.onerror = function(){ mostraFalha("Não consegui ler esse arquivo. Tente outra foto."); };
+  leitor.readAsDataURL(f);
+}
+
+document.getElementById("btnLimpar").addEventListener("click", function(){
+  if(estado.timerAnalise){ clearTimeout(estado.timerAnalise); estado.timerAnalise = null; }
+  if(estado.timerBotao){ clearTimeout(estado.timerBotao); estado.timerBotao = null; }
+  btnEnviar.textContent = "Registrar no painel";
+  visor.classList.remove("analisando");
+  estado.fonte = null; estado.analise = null;
+  tela.hidden = true;
+  visorVazio.hidden = false;
+  visorVazio.innerHTML = "A imagem analisada aparece aqui,<br>com as camadas que a IA identificou.";
+  blocoResultado.hidden = true;
+  btnEnviar.disabled = true;
+  arquivo.value = "";
+});
+
+/* =========================================================
+   8. PAINEL DE MONITORAMENTO
+   ========================================================= */
+var CHAVE = "ecotech.registros.v1";
+var registros = [];
+var temArmazenamento = true;
+try {
+  var bruto = window.localStorage.getItem(CHAVE);
+  if(bruto) registros = JSON.parse(bruto) || [];
+} catch(e){ temArmazenamento = false; registros = []; }
+
+function guarda(){
+  if(!temArmazenamento) return;
+  try { window.localStorage.setItem(CHAVE, JSON.stringify(registros)); } catch(e){ temArmazenamento = false; }
+}
+
+function hora(){
+  var d = new Date();
+  return ("0"+d.getHours()).slice(-2)+":"+("0"+d.getMinutes()).slice(-2);
+}
+
+function desenhaPainel(){
+  var corpo = document.getElementById("corpoTabela");
+  var vazio = document.getElementById("painelVazio");
+  var tabela = document.getElementById("tabela");
+  corpo.innerHTML = "";
+
+  if(!registros.length){
+    tabela.hidden = true; vazio.hidden = false;
+  } else {
+    tabela.hidden = false; vazio.hidden = true;
+    registros.slice().reverse().forEach(function(r){
+      var fx = faixa(r.indice);
+      var tr = document.createElement("tr");
+      tr.innerHTML =
+        "<td>"+r.hora+"</td>"+
+        "<td>"+r.local+"</td>"+
+        '<td class="nota" style="color:'+fx.cor+'">'+r.indice+"</td>"+
+        '<td><span class="sinal" style="background:'+fx.cor+'"></span>'+fx.nome+"</td>"+
+        "<td>"+r.obs+"</td>";
+      corpo.appendChild(tr);
+    });
+  }
+
+  var n = registros.length;
+  var media = n ? Math.round(registros.reduce(function(s,r){ return s+r.indice; },0)/n) : null;
+  var locais = {};
+  registros.forEach(function(r){ locais[r.local]=1; });
+  var alertas = registros.filter(function(r){ return r.indice < 70; }).length;
+
+  document.getElementById("nTotal").textContent   = n;
+  document.getElementById("nMedia").textContent   = media===null ? "—" : media;
+  document.getElementById("nPontos").textContent  = Object.keys(locais).length;
+  document.getElementById("nAlertas").textContent = alertas;
+}
+
+btnEnviar.addEventListener("click", function(){
+  if(!estado.analise) return;
+  var a = estado.analise;
+  if(!a.reconhecida) return;
+  var obs;
+  if(a.confianca !== "alta") obs = "Leitura com ressalva: " + CONFIANCA[a.confianca].frase;
+  else if(a.fracoes[4] >= 0.0015) obs = "Resíduo de cor artificial na margem";
+  else if(a.pureza <= 0.35)  obs = "Água com sedimento em suspensão";
+  else if(a.fracoes[3] < 0.06) obs = "Vegetação escassa na margem";
+  else obs = "Água clara e margem com vegetação";
+
+  registros.push({ hora:hora(), local:selLocal.value, indice:a.indice, obs:obs });
+  guarda();
+  desenhaPainel();
+
+  btnEnviar.textContent = "Registrado!";
+  btnEnviar.disabled = true;
+  /* O temporizador guarda a analise que estava valendo. Se outra foto entrar
+     nesse meio tempo, ele nao reabilita o botao apontando para a analise velha. */
+  var registrada = estado.analise;
+  estado.timerBotao = setTimeout(function(){
+    estado.timerBotao = null;
+    if(estado.analise !== registrada) return;
+    btnEnviar.textContent = "Registrar no painel";
+    btnEnviar.disabled = false;
+  }, 1700);
+});
+
+document.getElementById("btnZerar").addEventListener("click", function(){
+  if(registros.length && !window.confirm(registros.length === 1
+      ? "Apagar o registro da demonstração?"
+      : "Apagar os " + registros.length + " registros da demonstração?")) return;
+  registros = [];
+  guarda();
+  desenhaPainel();
+});
+
+var corpoSensores = document.getElementById("corpoSensores");
+SENSORES.forEach(function(s){
+  var tr = document.createElement("tr");
+  tr.innerHTML = "<td>"+s.nome+"</td><td>"+s.turbidez+"</td><td>"+s.ph+"</td><td>"+s.temp+"</td>"+
+                 '<td><span class="sinal" style="background:'+s.cor+'"></span>'+s.estado+"</td>";
+  corpoSensores.appendChild(tr);
+});
+
+desenhaPainel();
+
+})();
+</script>
+</body>
+</html>
