@@ -266,10 +266,13 @@
   .amostras span{display:block;font-size:.74rem;font-weight:700;padding:6px 4px;color:var(--verde-escuro)}
   .campo{margin-top:14px}
   .campo label{display:block;font-size:.84rem;font-weight:700;color:var(--verde-escuro);margin-bottom:5px}
-  .campo select{
+  .campo select,
+  .campo input[type=text],
+  .campo textarea{
     width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--borda);
-    background:var(--papel);font-size:.95rem;color:var(--texto);
+    background:var(--papel);font-size:.95rem;color:var(--texto);font-family:inherit;
   }
+  .campo textarea{min-height:96px;resize:vertical}
   .botao{
     display:inline-block;background:var(--verde);color:#fff;border:0;border-radius:12px;
     padding:12px 20px;font-size:.98rem;font-weight:700;cursor:pointer;transition:.15s;
@@ -844,6 +847,27 @@
         </ul>
       </div>
     </div>
+  </div>
+
+  <div class="cartao" id="caixa-recado" style="margin-top:18px">
+    <span class="etiqueta agua">Recado</span>
+    <h3 style="margin-top:10px">Fale com o grupo</h3>
+    <p class="legenda">Sugestão, pedido ou um oi para quem fez o site. A mensagem fica com a equipe.</p>
+    <form id="formRecado">
+      <div class="campo" style="margin-top:0">
+        <label for="recadoNome">Nome (opcional)</label>
+        <input id="recadoNome" type="text" maxlength="80" autocomplete="name">
+      </div>
+      <div class="campo">
+        <label for="recadoTexto">Mensagem</label>
+        <textarea id="recadoTexto" required maxlength="2000" rows="4"></textarea>
+      </div>
+      <div aria-hidden="true" style="position:absolute;left:-9999px;height:0;overflow:hidden">
+        <label>Site <input id="recadoArmadilha" name="website" tabindex="-1" autocomplete="off"></label>
+      </div>
+      <p id="recadoStatus" style="font-size:.9rem;color:var(--texto-suave);min-height:1.4em;margin:10px 0"></p>
+      <button type="submit" class="botao" id="btnRecado">Enviar recado</button>
+    </form>
   </div>
 
   <div class="cartao" style="margin-top:18px;text-align:center">
@@ -1585,6 +1609,57 @@ SENSORES.forEach(function(s){
 
 desenhaPainel();
 
+})();
+</script>
+<script>
+(function(){
+"use strict";
+var API = (function(){
+  var h = location.hostname;
+  if (h === "clawd-oci.tailb9ef24.ts.net" || h === "127.0.0.1" || h === "localhost") return "";
+  return "https://clawd-oci.tailb9ef24.ts.net:8443";
+})();
+function ecoEnvia(rota, corpo){
+  return fetch(API + rota, {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify(corpo || {}),
+    mode: "cors"
+  }).then(function(r){
+    return r.json().then(function(j){
+      if(!r.ok || j.ok === false) throw new Error(j.erro || "http");
+      return j;
+    });
+  });
+}
+ecoEnvia("/api/aberturas", {}).catch(function(){});
+var form = document.getElementById("formRecado");
+if(!form) return;
+var statusEl = document.getElementById("recadoStatus");
+var btn = document.getElementById("btnRecado");
+form.addEventListener("submit", function(ev){
+  ev.preventDefault();
+  if(document.getElementById("recadoArmadilha").value) return;
+  var texto = document.getElementById("recadoTexto").value.trim();
+  if(texto.length < 3){
+    statusEl.textContent = "Escreva um recado um pouco maior.";
+    return;
+  }
+  btn.disabled = true;
+  statusEl.textContent = "Enviando…";
+  ecoEnvia("/api/recados", {
+    nome: document.getElementById("recadoNome").value.trim(),
+    texto: texto,
+    website: document.getElementById("recadoArmadilha").value
+  }).then(function(){
+    document.getElementById("recadoTexto").value = "";
+    statusEl.textContent = "Recado enviado. Obrigado!";
+  }).catch(function(){
+    statusEl.textContent = "Sem conexão com o servidor da equipe. O recado não foi gravado. O restante do site continua funcionando.";
+  }).then(function(){
+    btn.disabled = false;
+  });
+});
 })();
 </script>
 </body>
